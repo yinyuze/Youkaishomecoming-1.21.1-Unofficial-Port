@@ -13,7 +13,7 @@ Contains essentially all content from the 1.20.1 version (food, cooking, buildin
 ## Attribution
 
 - **Original mod**: [Youkai's Homecoming](https://www.curseforge.com/minecraft/mc-mods/youkais-homecoming) by **lcy0x1**
-- **Original source**: <https://github.com/Lcy0x1/Youkai-Homecoming>
+- **Original source**: <https://github.com/Minecraft-LightLand/Youkai-Homecoming>
 - **License**: LGPL-2.1-only (inherited from upstream)
 - **This 1.21.1 port**: maintained by **yinyuze**, with permission from lcy0x1
 
