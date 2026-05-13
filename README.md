@@ -77,7 +77,7 @@ The `libs/` directory contains the project's library dependencies (`l2core`, `l2
 
 For bugs / suggestions specific to this 1.21.1 port, please open an issue on this repository.
 
-For issues that also exist in the official 1.20.1 version, please report them to the [upstream repository](https://github.com/Lcy0x1/Youkai-Homecoming) instead.
+For issues that also exist in the official 1.20.1 version, please report them to the [upstream repository](https://github.com/Minecraft-LightLand/Youkai-Homecoming) instead.
 
 ---
 
