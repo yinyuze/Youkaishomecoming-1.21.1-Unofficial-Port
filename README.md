@@ -27,7 +27,7 @@ Most 1.20.1 features have been ported and are functional in 1.21.1:
 
 - **Food & cooking system** (cooking pot, kettle, moka pot, basin, steamer, cuisine board, sauce rack, ingredient rack, wine shelf, etc.)
 - **Touhou characters** (Reimu, Cirno, Rumia and more) with custom AI, trading, spell cards
-- **Danmaku system** (via [danmaku_api](https://github.com/Lcy0x1/DanmakuAPI))
+- **Danmaku system** (via [danmaku_api](https://github.com/Minecraft-LightLand/DanmakuAPI))
 - **Character equipment**: Reimu's hairband, Rumia's hairband, Cirno's hairband / wings, Suwako's hat, Koishi's hat, Straw hat — all with their original mechanics
 - **Reputation system**, **donation box → summon Reimu**, **flesh / blood mechanics**, **frog god hat progression**
 - **Custom structures** (Hakurei Shrine, Cirno's Nest, Youkai Nest)
