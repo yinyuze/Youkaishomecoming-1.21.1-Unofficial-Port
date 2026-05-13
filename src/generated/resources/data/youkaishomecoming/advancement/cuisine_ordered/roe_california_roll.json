@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_crab_roe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "youkaishomecoming:crab_roe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "youkaishomecoming:roe_california_roll"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_crab_roe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "youkaishomecoming:roe_california_roll"
+    ]
+  }
+}

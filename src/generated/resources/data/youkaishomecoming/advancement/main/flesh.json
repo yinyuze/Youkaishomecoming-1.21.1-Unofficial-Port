@@ -1,0 +1,34 @@
+{
+  "parent": "youkaishomecoming:main/welcome_to_gensokyo",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "items": [
+          {
+            "items": "youkaishomecoming:flesh"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.youkaishomecoming.main.flesh.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "youkaishomecoming:flesh"
+    },
+    "title": {
+      "translate": "advancements.youkaishomecoming.main.flesh.title"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

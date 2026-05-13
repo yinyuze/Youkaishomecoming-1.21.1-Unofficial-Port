@@ -1,0 +1,22 @@
+{
+  "type": "youkaishomecoming:simple_fermentation",
+  "ingredients": [
+    {
+      "tag": "c:tea_leaves/black"
+    },
+    {
+      "tag": "c:tea_leaves/black"
+    },
+    {
+      "item": "minecraft:brown_mushroom"
+    }
+  ],
+  "inputFluid": {},
+  "inputFluidTag": "minecraft:water",
+  "outputFluid": {
+    "amount": 1000,
+    "id": "youkaishomecoming:dark_tea"
+  },
+  "results": [],
+  "time": 2400
+}

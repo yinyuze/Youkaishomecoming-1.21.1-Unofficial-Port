@@ -1,0 +1,48 @@
+package dev.xkmc.youkaishomecoming.init;
+
+import dev.xkmc.youkaishomecoming.content.client.YHRecipeCategories;
+import dev.xkmc.youkaishomecoming.content.entity.animal.lampery.LampreyModel;
+import dev.xkmc.youkaishomecoming.content.pot.overlay.HintOverlay;
+import dev.xkmc.youkaishomecoming.content.pot.overlay.TileClientTooltip;
+import dev.xkmc.youkaishomecoming.content.pot.overlay.TileInfoDisplay;
+import dev.xkmc.youkaishomecoming.content.pot.overlay.TileTooltip;
+import dev.xkmc.youkaishomecoming.init.registrate.YHBlocks;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.event.RegisterRecipeBookCategoriesEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
+
+import java.util.List;
+
+@EventBusSubscriber(value = Dist.CLIENT, modid = GensokyoLegacy.MODID)
+public class YHClient {
+
+	@SubscribeEvent
+	public static void registerOverlay(RegisterGuiLayersEvent event) {
+		event.registerAbove(VanillaGuiLayers.CROSSHAIR, GensokyoLegacy.loc("info_tile"), new TileInfoDisplay());
+		event.registerAbove(VanillaGuiLayers.CROSSHAIR, GensokyoLegacy.loc("cuisine_hint"), new HintOverlay());
+	}
+
+	@SubscribeEvent
+	public static void registerClientTooltip(RegisterClientTooltipComponentFactoriesEvent event) {
+		event.register(TileTooltip.class, TileClientTooltip::new);
+	}
+
+	//@SubscribeEvent
+	//public static void registerRecipeTab(RegisterRecipeBookCategoriesEvent event) {
+	//	event.registerBookCategories(GensokyoLegacy.MOKA, List.of(YHRecipeCategories.MOKA));
+	//	event.registerRecipeCategoryFinder(YHBlocks.MOKA_RT.get(), e -> YHRecipeCategories.MOKA);
+	//	event.registerBookCategories(GensokyoLegacy.KETTLE, List.of(YHRecipeCategories.KETTLE));
+	//	event.registerRecipeCategoryFinder(YHBlocks.KETTLE_RT.get(), e -> YHRecipeCategories.KETTLE);
+	//}
+
+	@SubscribeEvent
+	public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+		event.registerLayerDefinition(LampreyModel.LAYER_LOCATION, LampreyModel::createBodyLayer);
+	}
+
+}

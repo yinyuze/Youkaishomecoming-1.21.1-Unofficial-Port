@@ -1,0 +1,7 @@
+{
+  "parent": "youkaishomecoming:block/vertical_slab",
+  "textures": {
+    "side": "minecraft:block/hay_block_side",
+    "top": "minecraft:block/hay_block_top"
+  }
+}

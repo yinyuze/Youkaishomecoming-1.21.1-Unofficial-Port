@@ -1,0 +1,33 @@
+{
+  "parent": "youkaishomecoming:main/welcome_to_gensokyo",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "item": {
+          "items": "youkaishomecoming:koishi_mousse"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.youkaishomecoming.main.mousse.description"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "youkaishomecoming:koishi_mousse"
+    },
+    "title": {
+      "translate": "advancements.youkaishomecoming.main.mousse.title"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

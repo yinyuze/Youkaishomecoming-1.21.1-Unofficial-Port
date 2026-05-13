@@ -1,0 +1,26 @@
+{
+  "parent": "youkaishomecoming:main/grape",
+  "criteria": {
+    "0": {
+      "trigger": "youkaishomecoming:grape_cut"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.youkaishomecoming.main.grape_cut.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:shears"
+    },
+    "title": {
+      "translate": "advancements.youkaishomecoming.main.grape_cut.title"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

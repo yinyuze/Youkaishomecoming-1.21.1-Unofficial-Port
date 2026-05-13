@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:sugar"
+    },
+    "B": {
+      "item": "minecraft:milk_bucket"
+    },
+    "C": {
+      "item": "minecraft:glass_bottle"
+    },
+    "D": {
+      "tag": "youkaishomecoming:raw_flesh"
+    },
+    "E": {
+      "item": "minecraft:wheat"
+    },
+    "F": {
+      "item": "minecraft:cocoa_beans"
+    }
+  },
+  "pattern": [
+    "FBF",
+    "ADA",
+    "ECE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "youkaishomecoming:red_velvet"
+  }
+}

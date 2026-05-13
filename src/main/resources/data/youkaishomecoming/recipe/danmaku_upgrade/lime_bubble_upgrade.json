@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "danmaku_api:lime_ball_danmaku"
+    },
+    {
+      "item": "danmaku_api:lime_ball_danmaku"
+    },
+    {
+      "item": "danmaku_api:lime_ball_danmaku"
+    },
+    {
+      "item": "danmaku_api:lime_ball_danmaku"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "danmaku_api:lime_bubble_danmaku"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "youkaishomecoming:main/first_time",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "effects": {
+          "youkaishomecoming:youkaified": {}
+        }
+      },
+      "trigger": "minecraft:effects_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.youkaishomecoming.main.powerful_being.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "youkaishomecoming:suwako_hat"
+    },
+    "title": {
+      "translate": "advancements.youkaishomecoming.main.powerful_being.title"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

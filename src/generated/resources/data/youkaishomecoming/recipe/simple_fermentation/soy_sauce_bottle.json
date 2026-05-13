@@ -1,0 +1,25 @@
+{
+  "type": "youkaishomecoming:simple_fermentation",
+  "ingredients": [
+    {
+      "tag": "youkaishomecoming:soybean"
+    },
+    {
+      "tag": "youkaishomecoming:soybean"
+    },
+    {
+      "tag": "youkaishomecoming:soybean"
+    },
+    {
+      "tag": "youkaishomecoming:soybean"
+    }
+  ],
+  "inputFluid": {},
+  "inputFluidTag": "minecraft:water",
+  "outputFluid": {
+    "amount": 1000,
+    "id": "youkaishomecoming:soy_sauce"
+  },
+  "results": [],
+  "time": 1800
+}

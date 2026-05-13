@@ -1,0 +1,25 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:protected_blocks",
+      "value": "#minecraft:features_cannot_replace"
+    },
+    {
+      "map": {
+        "farmersdelight:spruce_cabinet": {
+          "type": "minecraft:append_loot",
+          "loot_table": "youkaishomecoming:chests/hakurei_shrine/cabinet"
+        },
+        "minecraft:barrel": {
+          "type": "minecraft:append_loot",
+          "loot_table": "youkaishomecoming:chests/hakurei_shrine/barrel"
+        },
+        "minecraft:chest": {
+          "type": "minecraft:append_loot",
+          "loot_table": "youkaishomecoming:chests/hakurei_shrine/chest"
+        }
+      },
+      "processor_type": "youkaishomecoming:set_data"
+    }
+  ]
+}

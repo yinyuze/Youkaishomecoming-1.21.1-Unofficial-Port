@@ -1,0 +1,1103 @@
+package dev.xkmc.youkaishomecoming.init.registrate;
+
+import com.tterrag.registrate.providers.DataGenContext;
+import com.tterrag.registrate.providers.RegistrateRecipeProvider;
+import com.tterrag.registrate.util.DataIngredient;
+import com.tterrag.registrate.util.entry.BlockEntityEntry;
+import com.tterrag.registrate.util.entry.BlockEntry;
+import com.tterrag.registrate.util.entry.ItemEntry;
+import com.tterrag.registrate.util.entry.MenuEntry;
+import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
+import dev.xkmc.l2core.init.reg.registrate.L2Registrate;
+import dev.xkmc.l2core.init.reg.registrate.SimpleEntry;
+import dev.xkmc.l2core.init.reg.simple.SR;
+import dev.xkmc.l2core.init.reg.simple.Val;
+import dev.xkmc.l2core.serial.recipe.BaseRecipe;
+import dev.xkmc.l2modularblock.core.BlockTemplates;
+import dev.xkmc.l2modularblock.core.DelegateBlock;
+import dev.xkmc.youkaishomecoming.content.block.combined.CombinedBlockSet;
+import dev.xkmc.youkaishomecoming.content.block.combined.IBlockSet;
+import dev.xkmc.youkaishomecoming.content.block.furniture.MokaKitBlock;
+import dev.xkmc.youkaishomecoming.content.block.furniture.MoonLanternBlock;
+import dev.xkmc.youkaishomecoming.content.block.furniture.WoodChairBlock;
+import dev.xkmc.youkaishomecoming.content.block.furniture.WoodTableBlock;
+import dev.xkmc.youkaishomecoming.content.block.variants.*;
+import dev.xkmc.youkaishomecoming.content.pot.base.BasePotBlock;
+import dev.xkmc.youkaishomecoming.content.pot.base.BasePotItem;
+import dev.xkmc.youkaishomecoming.content.pot.base.BasePotSerializer;
+import dev.xkmc.youkaishomecoming.content.block.food.BowlBlock;
+import dev.xkmc.youkaishomecoming.content.block.food.IronBowlBlock;
+import dev.xkmc.youkaishomecoming.content.pot.cooking.core.*;
+import dev.xkmc.youkaishomecoming.content.pot.cooking.small.*;
+import dev.xkmc.youkaishomecoming.content.pot.cooking.mid.*;
+import dev.xkmc.youkaishomecoming.content.pot.cooking.large.*;
+import dev.xkmc.youkaishomecoming.content.pot.cooking.soup.*;
+import dev.xkmc.youkaishomecoming.content.pot.ferment.*;
+import dev.xkmc.youkaishomecoming.content.pot.kettle.*;
+import dev.xkmc.youkaishomecoming.content.pot.moka.*;
+import dev.xkmc.youkaishomecoming.content.pot.rack.DryingRackBlock;
+import dev.xkmc.youkaishomecoming.content.pot.rack.DryingRackBlockEntity;
+import dev.xkmc.youkaishomecoming.content.pot.rack.DryingRackRecipe;
+import dev.xkmc.youkaishomecoming.content.pot.rack.DryingRackRenderer;
+import dev.xkmc.youkaishomecoming.init.GensokyoLegacy;
+import dev.xkmc.youkaishomecoming.init.data.YHRecipeGen;
+import dev.xkmc.youkaishomecoming.init.data.YHTagGen;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SimpleCookingSerializer;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import vectorwing.farmersdelight.common.registry.ModItems;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.function.Supplier;
+
+public class YHBlocks {
+
+	public enum WoodType implements IBlockSet {
+		OAK(Blocks.OAK_PLANKS, Blocks.OAK_FENCE, Items.STRIPPED_OAK_WOOD, Blocks.OAK_SLAB, Blocks.OAK_STAIRS),
+		BIRCH(Blocks.BIRCH_PLANKS, Blocks.BIRCH_FENCE, Items.STRIPPED_BIRCH_WOOD, Blocks.BIRCH_SLAB, Blocks.BRICK_STAIRS),
+		SPRUCE(Blocks.SPRUCE_PLANKS, Blocks.SPRUCE_FENCE, Items.STRIPPED_SPRUCE_WOOD, Blocks.SPRUCE_SLAB, Blocks.SPRUCE_STAIRS),
+		JUNGLE(Blocks.JUNGLE_PLANKS, Blocks.JUNGLE_FENCE, Items.STRIPPED_JUNGLE_WOOD, Blocks.JUNGLE_SLAB, Blocks.JUNGLE_STAIRS),
+		DARK_OAK(Blocks.DARK_OAK_PLANKS, Blocks.DARK_OAK_FENCE, Items.STRIPPED_DARK_OAK_WOOD, Blocks.DARK_OAK_SLAB, Blocks.DARK_OAK_STAIRS),
+		ACACIA(Blocks.ACACIA_PLANKS, Blocks.ACACIA_FENCE, Items.STRIPPED_ACACIA_WOOD, Blocks.ACACIA_SLAB, Blocks.ACACIA_STAIRS),
+		CRIMSON(Blocks.CRIMSON_PLANKS, Blocks.CRIMSON_FENCE, Items.STRIPPED_CRIMSON_HYPHAE, Blocks.CRIMSON_SLAB, Blocks.CRIMSON_STAIRS),
+		WARPED(Blocks.WARPED_PLANKS, Blocks.WARPED_FENCE, Items.STRIPPED_WARPED_HYPHAE, Blocks.WARPED_SLAB, Blocks.WARPED_STAIRS),
+		MANGROVE(Blocks.MANGROVE_PLANKS, Blocks.MANGROVE_FENCE, Items.STRIPPED_MANGROVE_WOOD, Blocks.MANGROVE_SLAB, Blocks.MANGROVE_STAIRS),
+		CHERRY(Blocks.CHERRY_PLANKS, Blocks.CHERRY_FENCE, Items.STRIPPED_CHERRY_WOOD, Blocks.CHERRY_SLAB, Blocks.CHERRY_STAIRS),
+		BAMBOO(Blocks.BAMBOO_PLANKS, Blocks.BAMBOO_FENCE, Items.STRIPPED_BAMBOO_BLOCK, Blocks.BAMBOO_SLAB, Blocks.BAMBOO_STAIRS),
+		;
+
+		private final Block plankProp, fenceProp, slab, stairs;
+		private final String name;
+		private final ResourceLocation tex;
+		public final ItemLike plank, strippedWood;
+		public BlockEntry<MultiFenceBlock> fence;
+		public BlockEntry<WoodTableBlock> table;
+		public BlockEntry<WoodChairBlock> seat;
+		public BlockEntry<VerticalSlabBlock> vertical;
+
+		WoodType(Block plankProp, Block fenceProp, ItemLike strippedWood, Block slab, Block stairs) {
+			this.plankProp = plankProp;
+			this.fenceProp = fenceProp;
+			this.plank = plankProp;
+			this.strippedWood = strippedWood;
+			this.slab = slab;
+			this.stairs = stairs;
+			name = name().toLowerCase(Locale.ROOT);
+			tex = ResourceLocation.withDefaultNamespace("block/" + name + "_planks");
+		}
+
+		@Override
+		public String getName() {
+			return name;
+		}
+
+		@Override
+		public BlockBehaviour.Properties prop() {
+			return BlockBehaviour.Properties.ofFullCopy(plankProp);
+		}
+
+		@Override
+		public Holder<Block> base() {
+			return plankProp.builtInRegistryHolder();
+		}
+
+		@Override
+		public Holder<Block> stairs() {
+			return stairs.builtInRegistryHolder();
+		}
+
+		@Override
+		public Holder<Block> slab() {
+			return slab.builtInRegistryHolder();
+		}
+
+		@Override
+		public Holder<Block> vertical() {
+			return vertical;
+		}
+
+		@Override
+		public ResourceLocation top() {
+			return tex;
+		}
+
+		@Override
+		public ResourceLocation side() {
+			return tex;
+		}
+
+	}
+
+	private static final SR<RecipeType<?>> RT = SR.of(GensokyoLegacy.REG, BuiltInRegistries.RECIPE_TYPE);
+	private static final SR<RecipeSerializer<?>> RS = SR.of(GensokyoLegacy.REG, BuiltInRegistries.RECIPE_SERIALIZER);
+
+	public static final SimpleEntry<CreativeModeTab> TAB_BLOCK, TAB_FURNITURE;
+
+	public static final BlockEntry<MokaMakerBlock> MOKA;
+	public static final BlockEntityEntry<MokaMakerBlockEntity> MOKA_BE;
+	public static final Val<RecipeType<MokaRecipe>> MOKA_RT;
+	public static final Val<BasePotSerializer<MokaRecipe>> MOKA_RS;
+	public static final MenuEntry<MokaMenu> MOKA_MT;
+
+	public static final BlockEntry<KettleBlock> KETTLE;
+	public static final BlockEntityEntry<KettleBlockEntity> KETTLE_BE;
+	public static final Val<RecipeType<KettleRecipe>> KETTLE_RT;
+	public static final Val<BasePotSerializer<KettleRecipe>> KETTLE_RS;
+	public static final MenuEntry<KettleMenu> KETTLE_MT;
+
+	public static final BlockEntry<DryingRackBlock> RACK;
+	public static final BlockEntityEntry<DryingRackBlockEntity> RACK_BE;
+	public static final Val<RecipeType<DryingRackRecipe>> RACK_RT;
+	public static final Val<RecipeSerializer<DryingRackRecipe>> RACK_RS;
+
+	public static final BlockEntry<DelegateBlock> FERMENT;
+	public static final BlockEntityEntry<FermentationTankBlockEntity> FERMENT_BE;
+	public static final Val<RecipeType<FermentationRecipe<?>>> FERMENT_RT;
+	public static final Val<BaseRecipe.RecType<SimpleFermentationRecipe, FermentationRecipe<?>, FermentationDummyContainer>> FERMENT_RS;
+
+	// Basin
+	public static final BlockEntry<DelegateBlock> BASIN;
+	public static final BlockEntityEntry<dev.xkmc.youkaishomecoming.content.pot.basin.BasinBlockEntity> BASIN_BE;
+	public static final Val<RecipeType<dev.xkmc.youkaishomecoming.content.pot.basin.BasinRecipe<?>>> BASIN_RT;
+	public static final Val<BaseRecipe.RecType<dev.xkmc.youkaishomecoming.content.pot.basin.SimpleBasinRecipe, dev.xkmc.youkaishomecoming.content.pot.basin.BasinRecipe<?>, dev.xkmc.youkaishomecoming.content.pot.basin.BasinInput>> BASIN_RS;
+
+	// Cooking pots
+	public static final BlockEntry<IronBowlBlock> IRON_BOWL, IRON_POT, STOCKPOT;
+	public static final BlockEntry<BowlBlock> WOOD_BOWL, BAMBOO_BOWL;
+	public static final BlockEntry<DelegateBlock> SMALL_POT, SHORT_POT, LARGE_POT;
+	public static final ItemEntry<BigSpoonItem> BIG_SPOON;
+	public static final BlockEntityEntry<SmallCookingPotBlockEntity> SMALL_POT_BE;
+	public static final BlockEntityEntry<MidCookingPotBlockEntity> MID_POT_BE;
+	public static final BlockEntityEntry<LargeCookingPotBlockEntity> LARGE_POT_BE;
+	public static final Val<RecipeType<PotCookingRecipe<?>>> COOKING_RT;
+	public static final Val<BaseRecipe.RecType<UnorderedCookingRecipe, PotCookingRecipe<?>, CookingInv>> COOKING_UNORDER;
+	public static final Val<RecipeType<SoupBaseRecipe<?>>> SOUP_RT;
+	public static final Val<BaseRecipe.RecType<SimpleSoupBaseRecipe, SoupBaseRecipe<?>, CookingInv>> IMMEDIATE_SOUP;
+
+	// Steamer
+	public static final BlockEntry<DelegateBlock> STEAMER_POT, STEAMER_RACK, STEAMER_LID;
+	public static final BlockEntityEntry<dev.xkmc.youkaishomecoming.content.pot.steamer.SteamerBlockEntity> STEAMER_BE;
+	public static final Val<RecipeType<dev.xkmc.youkaishomecoming.content.pot.steamer.SteamingRecipe>> STEAM_RT;
+	public static final Val<RecipeSerializer<dev.xkmc.youkaishomecoming.content.pot.steamer.SteamingRecipe>> STEAM_RS;
+
+	// Cuisine board
+	public static final BlockEntry<DelegateBlock> CUISINE_BOARD;
+	public static final BlockEntityEntry<dev.xkmc.youkaishomecoming.content.pot.table.board.CuisineBoardBlockEntity> CUISINE_BOARD_BE;
+	public static final Val<RecipeType<dev.xkmc.youkaishomecoming.content.pot.table.recipe.CuisineRecipe<?>>> CUISINE_RT;
+	public static final Val<BaseRecipe.RecType<dev.xkmc.youkaishomecoming.content.pot.table.recipe.OrderedCuisineRecipe, dev.xkmc.youkaishomecoming.content.pot.table.recipe.CuisineRecipe<?>, dev.xkmc.youkaishomecoming.content.pot.table.recipe.CuisineInv>> CUISINE_ORDER;
+	public static final Val<BaseRecipe.RecType<dev.xkmc.youkaishomecoming.content.pot.table.recipe.UnorderedCuisineRecipe, dev.xkmc.youkaishomecoming.content.pot.table.recipe.CuisineRecipe<?>, dev.xkmc.youkaishomecoming.content.pot.table.recipe.CuisineInv>> CUISINE_UNORDER;
+	public static final Val<BaseRecipe.RecType<dev.xkmc.youkaishomecoming.content.pot.table.recipe.MixedCuisineRecipe, dev.xkmc.youkaishomecoming.content.pot.table.recipe.CuisineRecipe<?>, dev.xkmc.youkaishomecoming.content.pot.table.recipe.CuisineInv>> CUISINE_MIXED;
+	public static final Val<BaseRecipe.RecType<dev.xkmc.youkaishomecoming.content.pot.table.recipe.FixedCuisineRecipe, dev.xkmc.youkaishomecoming.content.pot.table.recipe.CuisineRecipe<?>, dev.xkmc.youkaishomecoming.content.pot.table.recipe.CuisineInv>> CUISINE_FIXED;
+
+	// Storage racks
+	public static final BlockEntry<DelegateBlock> OAK_INGREDIENT_RACK;
+	public static final BlockEntityEntry<dev.xkmc.youkaishomecoming.content.pot.storage.ingredient.IngredientRackBlockEntity> INGREDIENT_RACK_BE;
+	public static final BlockEntry<DelegateBlock> OAK_SAUCE_RACK;
+	public static final BlockEntityEntry<dev.xkmc.youkaishomecoming.content.pot.storage.bottle.SauceRackBlockEntity> SAUCE_RACK_BE;
+	public static final BlockEntry<DelegateBlock> SPRUCE_WINE_SHELF;
+	public static final BlockEntityEntry<dev.xkmc.youkaishomecoming.content.pot.storage.shelf.WineShelfBlockEntity> WINE_SHELF_BE;
+
+	public static final BlockEntry<MokaKitBlock> MOKA_KIT;
+	public static final BlockEntry<MoonLanternBlock> MOON_LANTERN;
+
+	public static SikkuiGroup SIKKUI, LIGHT_YELLOW_SIKKUI, BROWN_SIKKUI;
+
+	public static final WoodSet HAY, STRAW;
+
+	static {
+		var reg = GensokyoLegacy.REGISTRATE;
+
+		{
+			MOKA = reg.block("moka_pot", p -> new MokaMakerBlock(
+							BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA).sound(SoundType.METAL)))
+					.blockstate(MokaMakerBlock::buildModel).item(BasePotItem::new).properties(e -> e.stacksTo(1)).build()
+					.loot(BasePotBlock::buildLoot).tag(BlockTags.MINEABLE_WITH_PICKAXE).register();
+			MOKA_BE = reg.blockEntity("moka_pot", MokaMakerBlockEntity::new).validBlock(MOKA).register();
+			MOKA_RT = RT.reg("moka_pot", RecipeType::simple);
+			MOKA_RS = RS.reg("moka_pot", () -> new BasePotSerializer<>(MokaRecipe::new));
+			MOKA_MT = reg.menu("moka_pot", MokaMenu::new, () -> MokaScreen::new).register();
+
+			KETTLE = reg.block("kettle", p -> new KettleBlock(
+							BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA).sound(SoundType.METAL)))
+					.blockstate(KettleBlock::buildModel).item(BasePotItem::new).properties(e -> e.stacksTo(1)).build()
+					.loot(BasePotBlock::buildLoot).tag(BlockTags.MINEABLE_WITH_PICKAXE).register();
+			KETTLE_BE = reg.blockEntity("kettle", KettleBlockEntity::new).validBlock(KETTLE).register();
+			KETTLE_RT = RT.reg("kettle", RecipeType::simple);
+			KETTLE_RS = RS.reg("kettle", () -> new BasePotSerializer<>(KettleRecipe::new));
+			KETTLE_MT = reg.menu("kettle", KettleMenu::new, () -> KettleScreen::new).register();
+
+			RACK = reg.block("drying_rack", p -> new DryingRackBlock(
+							BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO_PLANKS).noOcclusion()))
+					.blockstate(DryingRackBlock::buildModel)
+					.simpleItem().tag(BlockTags.MINEABLE_WITH_AXE).register();
+			RACK_BE = reg.blockEntity("drying_rack", DryingRackBlockEntity::new)
+					.validBlock(RACK).renderer(() -> DryingRackRenderer::new).register();
+			RACK_RT = RT.reg("drying_rack", RecipeType::simple);
+			RACK_RS = RS.reg("drying_rack", () -> new SimpleCookingSerializer<>(DryingRackRecipe::new, 100));
+
+			FERMENT = reg.block("fermentation_tank", p ->
+							DelegateBlock.newBaseBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS),
+									new FermentationTankBlock(), FermentationTankBlock.TE))
+					.blockstate(FermentationTankBlock::buildModel)
+					.simpleItem().tag(BlockTags.MINEABLE_WITH_AXE)
+					.register();
+			FERMENT_BE = reg.blockEntity("fermentation_tank", FermentationTankBlockEntity::new)
+					.validBlock(FERMENT).renderer(() -> FermentationTankRenderer::new).register();
+			FERMENT_RT = RT.reg("fermentation", RecipeType::simple);
+			FERMENT_RS = RS.reg("simple_fermentation", () -> new BaseRecipe.RecType<>(SimpleFermentationRecipe.class, FERMENT_RT));
+
+			// Basin
+			BASIN = reg.block("wood_basin", p ->
+							DelegateBlock.newBaseBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS),
+									new dev.xkmc.youkaishomecoming.content.pot.basin.BasinBlock(), dev.xkmc.youkaishomecoming.content.pot.basin.BasinBlock.TE))
+					.blockstate(dev.xkmc.youkaishomecoming.content.pot.basin.BasinBlock::buildModel)
+					.simpleItem().tag(BlockTags.MINEABLE_WITH_AXE)
+					.register();
+			BASIN_BE = reg.blockEntity("wood_basin", dev.xkmc.youkaishomecoming.content.pot.basin.BasinBlockEntity::new)
+					.validBlock(BASIN).renderer(() -> dev.xkmc.youkaishomecoming.content.pot.basin.BasinRenderer::new).register();
+			BASIN_RT = RT.reg("basin", RecipeType::simple);
+			BASIN_RS = RS.reg("simple_basin", () -> new BaseRecipe.RecType<>(dev.xkmc.youkaishomecoming.content.pot.basin.SimpleBasinRecipe.class, BASIN_RT));
+
+		}
+
+		// Cooking pots
+		{
+			IRON_BOWL = BowlBlock.ironBowl("small_iron_pot")
+					.item().build()
+					.register();
+
+			IRON_POT = reg.block("short_iron_pot", p -> new IronBowlBlock(p, BowlBlock.POT_SHAPE))
+					.initialProperties(() -> Blocks.CAULDRON)
+					.properties(p -> p.sound(SoundType.METAL))
+					.blockstate(MidCookingPotBlock::buildState)
+					.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+					.item().build()
+					.register();
+
+			STOCKPOT = reg.block("stockpot", p -> new IronBowlBlock(p, BowlBlock.STOCKPOT_SHAPE))
+					.initialProperties(() -> Blocks.CAULDRON)
+					.properties(p -> p.sound(SoundType.METAL))
+					.blockstate(LargeCookingPotBlock::buildState)
+					.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+					.item().build()
+					.loot(LargeCookingPotBlock::createLoot)
+					.register();
+
+			BIG_SPOON = reg.item("big_spoon", BigSpoonItem::new)
+					.properties(p -> p.stacksTo(1))
+					.model(BigSpoonItem::buildModel)
+					.register();
+
+			WOOD_BOWL = BowlBlock.woodBowlFood("wood_bowl")
+					.loot((pvd, block) -> pvd.dropOther(block, Items.BOWL))
+					.register();
+
+			BAMBOO_BOWL = BowlBlock.bambooBowl("bamboo_bowl")
+					.loot((pvd, block) -> pvd.dropOther(block, Items.BAMBOO))
+					.register();
+
+			SMALL_POT = reg.block("cooking_small_iron_pot", SmallCookingPotBlock::create)
+					.initialProperties(() -> Blocks.CAULDRON)
+					.properties(p -> p.sound(SoundType.METAL))
+					.blockstate(SmallCookingPotBlock::buildState)
+					.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+					.loot((pvd, b) -> pvd.dropOther(b, IRON_BOWL.get()))
+					.register();
+
+			SMALL_POT_BE = reg.blockEntity("cooking_small_iron_pot", SmallCookingPotBlockEntity::new)
+					.validBlock(SMALL_POT)
+					.renderer(() -> SmallCookingPotRenderer::new)
+					.register();
+
+			SHORT_POT = reg.block("cooking_short_iron_pot", MidCookingPotBlock::create)
+					.initialProperties(() -> Blocks.CAULDRON)
+					.properties(p -> p.sound(SoundType.METAL))
+					.blockstate(MidCookingPotBlock::buildState)
+					.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+					.loot((pvd, b) -> pvd.dropOther(b, IRON_POT.get()))
+					.register();
+
+			MID_POT_BE = reg.blockEntity("cooking_short_iron_pot", MidCookingPotBlockEntity::new)
+					.validBlock(SHORT_POT)
+					.renderer(() -> MidCookingPotRenderer::new)
+					.register();
+
+			LARGE_POT = reg.block("cooking_stockpot", LargeCookingPotBlock::create)
+					.initialProperties(() -> Blocks.CAULDRON)
+					.properties(p -> p.sound(SoundType.METAL))
+					.blockstate(LargeCookingPotBlock::buildState)
+					.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+					.loot(LargeCookingPotBlock::createLoot)
+					.register();
+
+			LARGE_POT_BE = reg.blockEntity("cooking_stockpot", LargeCookingPotBlockEntity::new)
+					.validBlock(LARGE_POT)
+					.renderer(() -> LargeCookingPotRenderer::new)
+					.register();
+
+			COOKING_RT = RT.reg("pot_cooking", RecipeType::simple);
+			COOKING_UNORDER = RS.reg("unordered_cooking", () -> new BaseRecipe.RecType<>(UnorderedCookingRecipe.class, COOKING_RT));
+			SOUP_RT = RT.reg("soup_base", RecipeType::simple);
+			IMMEDIATE_SOUP = RS.reg("immediate_soup", () -> new BaseRecipe.RecType<>(SimpleSoupBaseRecipe.class, SOUP_RT));
+
+		}
+
+		// Steamer
+		{
+			STEAMER_POT = reg.block("steamer_pot", p -> dev.xkmc.youkaishomecoming.content.pot.steamer.SteamerStates.createPotBlock())
+					.initialProperties(() -> Blocks.IRON_BLOCK)
+					.blockstate(dev.xkmc.youkaishomecoming.content.pot.steamer.SteamerBlockJsons::genPotModel)
+					.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+					.loot(dev.xkmc.youkaishomecoming.content.pot.steamer.SteamerBlockJsons::genPotLoot)
+					.item().model((ctx, pvd) -> pvd.blockItem(ctx))
+					.build()
+					.register();
+
+			STEAMER_RACK = reg.block("steamer_rack", p -> dev.xkmc.youkaishomecoming.content.pot.steamer.SteamerStates.createRackBlock())
+					.initialProperties(() -> Blocks.BAMBOO_BLOCK)
+					.blockstate(dev.xkmc.youkaishomecoming.content.pot.steamer.SteamerBlockJsons::genRackModel)
+					.tag(BlockTags.MINEABLE_WITH_AXE)
+					.loot(dev.xkmc.youkaishomecoming.content.pot.steamer.SteamerBlockJsons::genRackLoot)
+					.item().model((ctx, pvd) -> pvd.blockItem(ctx))
+					.build()
+					.register();
+
+			STEAMER_LID = reg.block("steamer_lid", p -> dev.xkmc.youkaishomecoming.content.pot.steamer.SteamerStates.createLidBlock())
+					.initialProperties(() -> Blocks.OAK_PLANKS)
+					.blockstate(dev.xkmc.youkaishomecoming.content.pot.steamer.SteamerBlockJsons::genLidModel)
+					.tag(BlockTags.MINEABLE_WITH_AXE)
+					.simpleItem()
+					.register();
+
+			STEAMER_BE = reg.blockEntity("steamer", dev.xkmc.youkaishomecoming.content.pot.steamer.SteamerBlockEntity::new)
+					.validBlock(STEAMER_POT)
+					.validBlock(STEAMER_RACK)
+					.renderer(() -> dev.xkmc.youkaishomecoming.content.pot.steamer.SteamerBlockRenderer::new)
+					.register();
+
+			STEAM_RT = RT.reg("steaming", RecipeType::simple);
+			STEAM_RS = RS.reg("steaming", () -> new SimpleCookingSerializer<>(dev.xkmc.youkaishomecoming.content.pot.steamer.SteamingRecipe::new, 200));
+
+		}
+
+		// Cuisine board
+		{
+			CUISINE_BOARD = reg.block("cuisine_board", dev.xkmc.youkaishomecoming.content.pot.table.board.CuisineBoardBlock::create)
+					.initialProperties(() -> Blocks.OAK_PLANKS)
+					.blockstate(dev.xkmc.youkaishomecoming.content.pot.table.board.CuisineBoardBlock::buildState)
+					.tag(BlockTags.MINEABLE_WITH_AXE)
+					.simpleItem()
+					.register();
+
+			CUISINE_BOARD_BE = reg.blockEntity("cuisine_board", dev.xkmc.youkaishomecoming.content.pot.table.board.CuisineBoardBlockEntity::new)
+					.validBlock(CUISINE_BOARD)
+					.renderer(() -> dev.xkmc.youkaishomecoming.content.pot.table.board.CuisineBoardRenderer::new)
+					.register();
+
+			CUISINE_RT = RT.reg("cuisine", RecipeType::simple);
+			CUISINE_ORDER = RS.reg("cuisine_ordered", () -> new BaseRecipe.RecType<>(dev.xkmc.youkaishomecoming.content.pot.table.recipe.OrderedCuisineRecipe.class, CUISINE_RT));
+			CUISINE_UNORDER = RS.reg("cuisine_unordered", () -> new BaseRecipe.RecType<>(dev.xkmc.youkaishomecoming.content.pot.table.recipe.UnorderedCuisineRecipe.class, CUISINE_RT));
+			CUISINE_MIXED = RS.reg("cuisine_mixed", () -> new BaseRecipe.RecType<>(dev.xkmc.youkaishomecoming.content.pot.table.recipe.MixedCuisineRecipe.class, CUISINE_RT));
+			CUISINE_FIXED = RS.reg("cuisine_fixed", () -> new BaseRecipe.RecType<>(dev.xkmc.youkaishomecoming.content.pot.table.recipe.FixedCuisineRecipe.class, CUISINE_RT));
+
+		}
+
+		{
+			// Storage racks
+			OAK_INGREDIENT_RACK = reg.block("oak_ingredient_rack", p ->
+							DelegateBlock.newBaseBlock(p, BlockTemplates.HORIZONTAL, new dev.xkmc.youkaishomecoming.content.pot.storage.ingredient.IngredientRackBlock(), dev.xkmc.youkaishomecoming.content.pot.storage.ingredient.IngredientRackBlock.BE))
+					.blockstate(dev.xkmc.youkaishomecoming.content.pot.storage.ingredient.IngredientRackBlock::buildModels)
+					.properties(p -> p.noOcclusion())
+					.simpleItem()
+					.tag(BlockTags.MINEABLE_WITH_AXE)
+					.register();
+
+			INGREDIENT_RACK_BE = reg.blockEntity("ingredient_rack", dev.xkmc.youkaishomecoming.content.pot.storage.ingredient.IngredientRackBlockEntity::new)
+					.renderer(() -> dev.xkmc.youkaishomecoming.content.pot.storage.ingredient.IngredientRackRenderer::new)
+					.validBlock(OAK_INGREDIENT_RACK)
+					.register();
+
+			OAK_SAUCE_RACK = reg.block("oak_sauce_rack", p ->
+							DelegateBlock.newBaseBlock(p, BlockTemplates.HORIZONTAL, new dev.xkmc.youkaishomecoming.content.pot.storage.bottle.SauceRackBlock(), dev.xkmc.youkaishomecoming.content.pot.storage.bottle.SauceRackBlock.BE))
+					.blockstate(dev.xkmc.youkaishomecoming.content.pot.storage.bottle.SauceRackBlock::buildModels)
+					.properties(p -> p.noOcclusion())
+					.simpleItem()
+					.tag(BlockTags.MINEABLE_WITH_AXE)
+					.register();
+
+			SAUCE_RACK_BE = reg.blockEntity("sauce_rack", dev.xkmc.youkaishomecoming.content.pot.storage.bottle.SauceRackBlockEntity::new)
+					.renderer(() -> dev.xkmc.youkaishomecoming.content.pot.storage.bottle.SauceRackRenderer::new)
+					.validBlock(OAK_SAUCE_RACK)
+					.register();
+
+			SPRUCE_WINE_SHELF = reg.block("spruce_wine_shelf", p ->
+							DelegateBlock.newBaseBlock(p, BlockTemplates.HORIZONTAL, new dev.xkmc.youkaishomecoming.content.pot.storage.shelf.WineShelfBlock(), dev.xkmc.youkaishomecoming.content.pot.storage.shelf.WineShelfBlock.BE))
+					.blockstate(dev.xkmc.youkaishomecoming.content.pot.storage.shelf.WineShelfBlock::buildModels)
+					.properties(p -> p.noOcclusion())
+					.simpleItem()
+					.tag(BlockTags.MINEABLE_WITH_AXE)
+					.register();
+
+			WINE_SHELF_BE = reg.blockEntity("wine_shelf", dev.xkmc.youkaishomecoming.content.pot.storage.shelf.WineShelfBlockEntity::new)
+					.renderer(() -> dev.xkmc.youkaishomecoming.content.pot.storage.shelf.ShelfRenderer::new)
+					.validBlock(SPRUCE_WINE_SHELF)
+					.register();
+
+		}
+
+		{
+
+			MOON_LANTERN = reg.block("moon_lantern", p -> new MoonLanternBlock(
+							BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN)))
+					.blockstate(MoonLanternBlock::buildStates)
+					.simpleItem().tag(BlockTags.MINEABLE_WITH_AXE).register();
+
+		}
+
+		TAB_FURNITURE = reg.buildModCreativeTab("furniture", "Youkai's Homecoming - Furniture",
+				e -> e.icon(WoodType.OAK.table::asStack));
+
+		{
+
+			MOKA_KIT = reg.block("moka_kit", p -> new MokaKitBlock(
+							BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA).sound(SoundType.METAL)))
+					.blockstate((ctx, pvd) -> pvd.horizontalBlock(ctx.get(), pvd.models().getBuilder("block/moka_kit")
+							.parent(new ModelFile.UncheckedModelFile(pvd.modLoc("custom/moka_kit")))
+							.texture("maker", pvd.modLoc("block/moka_pot"))
+							.texture("cup", pvd.modLoc("block/moka_cup"))
+							.texture("foamer", pvd.modLoc("block/moka_foamer"))
+							.renderType("cutout")))
+					.simpleItem().tag(BlockTags.MINEABLE_WITH_PICKAXE).register();
+
+			for (var e : WoodType.values()) {
+				String name = e.name().toLowerCase(Locale.ROOT);
+				e.fence = reg.block(name + "_handrail",
+								p -> new MultiFenceBlock(BlockBehaviour.Properties.ofFullCopy(e.fenceProp).noOcclusion()))
+						.blockstate(MultiFenceBlock::genModel)
+						.item().model((ctx, pvd) -> pvd.generated(ctx, pvd.modLoc("item/handrail/" + ctx.getName()))).build()
+						.tag(BlockTags.MINEABLE_WITH_AXE).defaultLoot()
+						.recipe((ctx, pvd) -> pvd.stonecutting(DataIngredient.items(e.plank), RecipeCategory.MISC, ctx))
+						.register();
+
+				e.table = reg.block(name + "_dining_table", p -> new WoodTableBlock(
+								BlockBehaviour.Properties.ofFullCopy(e.plankProp)))
+						.blockstate(WoodTableBlock::buildStates)
+						.simpleItem().tag(BlockTags.MINEABLE_WITH_AXE)
+						.recipe((ctx, pvd) -> WoodTableBlock.genRecipe(pvd, e, ctx))
+						.register();
+
+				e.seat = reg.block(name + "_dining_chair", p -> new WoodChairBlock(
+								BlockBehaviour.Properties.ofFullCopy(e.plankProp)))
+						.blockstate(WoodChairBlock::buildStates)
+						.simpleItem().tag(BlockTags.MINEABLE_WITH_AXE)
+						.recipe((ctx, pvd) -> WoodChairBlock.genRecipe(pvd, e, ctx))
+						.register();
+
+			}
+
+		}
+
+		TAB_BLOCK = reg.buildModCreativeTab("building_blocks", "Youkai's Homecoming - Building Blocks",
+				e -> e.icon(YHBlocks.SIKKUI.FINE_GRID_SIKKUI::asStack));
+
+		{
+			SIKKUI = new SikkuiGroup(reg, "", (ctx, pvd) ->
+					YHRecipeGen.unlock(pvd, ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ctx.get(), 2)::unlockedBy, ModItems.STRAW.get())
+							.pattern("ABA").pattern("DCD").pattern("ABA")
+							.define('A', Items.CLAY_BALL)
+							.define('B', Items.BONE_MEAL)
+							.define('D', Items.PAPER)
+							.define('C', ModItems.STRAW.get())
+							.save(pvd));
+			LIGHT_YELLOW_SIKKUI = new SikkuiGroup(reg, "light_yellow_", (ctx, pvd) ->
+					YHRecipeGen.unlock(pvd, ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ctx.get(), 2)::unlockedBy, ModItems.STRAW.get())
+							.requires(Items.SAND).requires(Items.CLAY).requires(ModItems.STRAW.get())
+							.save(pvd));
+			BROWN_SIKKUI = new SikkuiGroup(reg, "brown_", (ctx, pvd) ->
+					YHRecipeGen.unlock(pvd, ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ctx.get(), 2)::unlockedBy, ModItems.STRAW.get())
+							.requires(Items.DIRT).requires(Items.CLAY).requires(ModItems.STRAW.get())
+							.save(pvd));
+
+			var prop = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW)
+					.instrument(NoteBlockInstrument.BANJO).strength(0.5F).sound(SoundType.GRASS);
+
+			// Create our own straw_bale block to avoid dependency on Farmer's Delight registration order
+			BlockEntry<Block> STRAW_BALE = reg.block("straw_bale", Block::new)
+					.properties(p -> BlockBehaviour.Properties.of()
+							.mapColor(MapColor.COLOR_YELLOW)
+							.instrument(NoteBlockInstrument.BANJO)
+							.strength(0.5F)
+							.sound(SoundType.GRASS))
+					.blockstate((ctx, pvd) -> pvd.simpleBlock(ctx.get(), pvd.models().cubeColumn(
+							ctx.getName(),
+							GensokyoLegacy.loc("block/straw_bale_side"),
+							GensokyoLegacy.loc("block/straw_bale_end"))))
+					.simpleItem()
+					.register();
+
+			HAY = new WoodSet(reg, "hay", () -> Blocks.HAY_BLOCK, prop,
+					ResourceLocation.withDefaultNamespace("block/hay_block_top"),
+					ResourceLocation.withDefaultNamespace("block/hay_block_side"),
+					ResourceLocation.withDefaultNamespace("block/hay_block")
+			);
+			STRAW = new WoodSet(reg, "straw", STRAW_BALE, prop,
+					GensokyoLegacy.loc("block/straw_bale_end"),
+					GensokyoLegacy.loc("block/straw_bale_side"),
+					GensokyoLegacy.loc("block/straw_bale")
+			);
+
+			for (var e : WoodType.values()) {
+				String name = e.name().toLowerCase(Locale.ROOT);
+				e.vertical = reg.block(name + "_vertical_slab", p ->
+								new VerticalSlabBlock(prop))
+						.blockstate((ctx, pvd) -> VerticalSlabBlock.buildBlockState(ctx, pvd, e.side(), e.side()))
+						.tag(YHTagGen.VERTICAL_SLAB, BlockTags.MINEABLE_WITH_AXE).item().build()
+						.recipe((ctx, pvd) -> VerticalSlabBlock.genRecipe(pvd, () -> e.plank, ctx))
+						.register();
+			}
+
+			for (var e : VanillaStoneSet.values()) {
+				e.vertical = reg.block(e.getName() + "_vertical_slab", p ->
+								new VerticalSlabBlock(prop))
+						.blockstate((ctx, pvd) -> VerticalSlabBlock.buildBlockState(ctx, pvd, e.side(), e.side()))
+						.tag(YHTagGen.VERTICAL_SLAB, BlockTags.MINEABLE_WITH_AXE).item().build()
+						.recipe((ctx, pvd) -> VerticalSlabBlock.genRecipe(pvd, () -> e.base, ctx))
+						.register();
+			}
+
+			VanillaBlockSet.values();
+		}
+
+
+		reg.buildModCreativeTab("composite_blocks", "Youkai's Homecoming - Composite Blocks",
+				e -> e.icon(CombinedBlockSet.any().slab::asStack));
+
+		{
+
+			List<IBlockSet> wood = new ArrayList<>(List.of(WoodType.values()));
+			wood.add(VanillaStoneSet.BAMBOO_MOSAIC);
+			buildComposite(reg, wood);
+
+			buildComposite(reg, List.of(
+					SIKKUI.SIKKUI,
+					LIGHT_YELLOW_SIKKUI.SIKKUI,
+					BROWN_SIKKUI.SIKKUI,
+					SIKKUI.CROSS_SIKKUI,
+					LIGHT_YELLOW_SIKKUI.CROSS_SIKKUI,
+					BROWN_SIKKUI.CROSS_SIKKUI,
+					VanillaStoneSet.BRICK,
+					VanillaStoneSet.NETHER_BRICK,
+					VanillaStoneSet.RED_NETHER_BRICK,
+					VanillaStoneSet.DEEPSLATE_TILES
+			));
+
+			buildComposite(reg, List.of(
+					VanillaStoneSet.STONE_BRICK,
+					VanillaStoneSet.MOSSY_STONE_BRICK,
+					VanillaStoneSet.DEEPSLATE_BRICK,
+					VanillaStoneSet.POLISHED_BLACKSTONE_BRICK,
+					VanillaStoneSet.TUFF_BRICK,
+					VanillaStoneSet.END_STONE_BRICK,
+					VanillaStoneSet.PURPUR_BLOCK
+			));
+
+			buildComposite(reg, List.of(VanillaBlockSet.values()));
+
+			// COBBLESTONE,MOSSY_COBBLESTONE,COBBLED_DEEPSLATE
+			// STONE,BLACKSTONE,GRANITE,ANDESITE,DIORITE,TUFF
+			// POLISHED_DEEPSLATE,POLISHED_BLACKSTONE,POLISHED_BLACKSTONE,POLISHED_GRANITE,POLISHED_ANDESITE,POLISHED_DIORITE,POLISHED_TUFF
+
+		}
+
+	}
+
+	private static void buildComposite(L2Registrate reg, List<IBlockSet> list) {
+		for (var a : list) {
+			for (var b : list) {
+				CombinedBlockSet.add(reg, a, b);
+			}
+		}
+	}
+
+	private static BlockEntry<ThinTrapdoorBlock> thinTrapdoor(L2Registrate reg, String id, BlockBehaviour.Properties prop, BlockSetType set, ResourceLocation side, Supplier<Block> base) {
+		return reg.block(id + "_trap_door", p ->
+						new ThinTrapdoorBlock(prop, set))
+				.blockstate((ctx, pvd) -> ThinTrapdoorBlock.buildModels(pvd, ctx.get(), ctx.getName(), side))
+				.tag(YHTagGen.SIKKUI, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_AXE, BlockTags.TRAPDOORS)
+				.item().model((ctx, pvd) -> pvd.getBuilder(ctx.getName()).parent(
+						new ModelFile.UncheckedModelFile(pvd.modLoc("block/" + id + "_trap_door_bottom"))))
+				.tag(ItemTags.TRAPDOORS).tab(TAB_FURNITURE.key()).build()
+				.recipe((ctx, pvd) -> pvd.stonecutting(DataIngredient.items(base.get()), RecipeCategory.MISC, ctx, 6))
+				.register();
+	}
+
+	private static BlockEntry<ThinDoorBlock> thinDoor(
+			L2Registrate reg, String id, BlockBehaviour.Properties prop, BlockSetType set,
+			ResourceLocation bottom, ResourceLocation top, Supplier<Block> base
+	) {
+		return reg.block(id, p -> new ThinDoorBlock(prop, set))
+				.blockstate((ctx, pvd) -> ThinDoorBlock.buildModels(pvd, ctx.get(), ctx.getName(), bottom, top))
+				.tag(YHTagGen.SIKKUI, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_AXE, BlockTags.DOORS)
+				.item().model((ctx, pvd) -> pvd.generated(ctx)).tag(ItemTags.DOORS).tab(TAB_FURNITURE.key()).build()
+				.loot((pvd, b) -> pvd.add(b, pvd.createDoorTable(b)))
+				.recipe((ctx, pvd) -> pvd.stonecutting(DataIngredient.items(base.get()), RecipeCategory.MISC, ctx, 3))
+				.register();
+	}
+
+	public static void register() {
+
+	}
+
+	public static class SikkuiGroup {
+
+		public FullSikkuiSet SIKKUI, CROSS_SIKKUI;
+		public SikkuiSet FRAMED_SIKKUI, GRID_SIKKUI;
+		public BlockEntry<Block> FINE_GRID_SIKKUI;
+		public BlockEntry<ThinTrapdoorBlock> FINE_GRID_SIKKUI_TD;
+		public BlockEntry<ThinDoorBlock> FINE_GRID_SHOJI;
+
+		public SikkuiGroup(L2Registrate reg, String id, Ingredient dye) {
+			this(reg, id, (ctx, pvd) -> SikkuiGroup.genColor(pvd, YHBlocks.SIKKUI.SIKKUI.BASE, ctx, dye));
+		}
+
+		public SikkuiGroup(L2Registrate reg, String id, BlockRecipe builder) {
+
+			var set = new BlockSetType(id + "_sikkui", true, true, true,
+					BlockSetType.PressurePlateSensitivity.EVERYTHING, SoundType.WOOD,
+					SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN,
+					SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN,
+					SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON,
+					SoundEvents.WOODEN_BUTTON_CLICK_OFF, SoundEvents.WOODEN_BUTTON_CLICK_ON);
+
+			var sikkuiProp = BlockBehaviour.Properties.ofFullCopy(Blocks.CLAY);
+
+			SIKKUI = new FullSikkuiSet(reg, id + "sikkui", sikkuiProp, builder);
+			FRAMED_SIKKUI = new SikkuiSet(reg, id + "framed_sikkui", sikkuiProp, (ctx, pvd) -> genStickRecipe(pvd, SIKKUI.BASE, ctx));
+			CROSS_SIKKUI = new FullSikkuiSet(reg, id + "cross_framed_sikkui", sikkuiProp, (ctx, pvd) -> genStickRecipe(pvd, FRAMED_SIKKUI.BASE, ctx));
+			GRID_SIKKUI = new SikkuiSet(reg, id + "grid_framed_sikkui", sikkuiProp, (ctx, pvd) -> genStickRecipe(pvd, CROSS_SIKKUI.BASE, ctx));
+
+			FINE_GRID_SIKKUI = reg.block(id + "fine_grid_framed_sikkui",
+							p -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.CLAY)))
+					.blockstate((ctx, pvd) -> pvd.simpleBlock(ctx.get(),
+							pvd.models().cubeColumn("block/" + ctx.getName(),
+									pvd.modLoc("block/sikkui/" + ctx.getName() + "_side"),
+									pvd.modLoc("block/sikkui/" + id + "framed_sikkui"))))
+					.tag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_AXE)
+					.simpleItem()
+					.recipe((ctx, pvd) -> genStickRecipe(pvd, GRID_SIKKUI.BASE, ctx))
+					.register();
+
+			FINE_GRID_SIKKUI_TD = thinTrapdoor(reg, id + "fine_grid_framed_sikkui", sikkuiProp, set,
+					reg.loc("block/sikkui/" + id + "fine_grid_framed_sikkui_side"), FINE_GRID_SIKKUI);
+
+			var doorProp = BlockBehaviour.Properties.ofFullCopy(Blocks.CLAY)
+					.noOcclusion().pushReaction(PushReaction.DESTROY);
+
+			FINE_GRID_SHOJI = thinDoor(reg, id + "fine_grid_framed_shoji", doorProp, set,
+					reg.loc("block/sikkui/" + id + "fine_grid_framed_shoji_bottom"),
+					reg.loc("block/sikkui/" + id + "fine_grid_framed_sikkui_side"),
+					FINE_GRID_SIKKUI);
+
+		}
+
+		private static void genStickRecipe(RegistrateRecipeProvider pvd, Supplier<? extends ItemLike> parent, Supplier<? extends ItemLike> self) {
+			YHRecipeGen.unlock(pvd, ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, self.get())::unlockedBy, parent.get().asItem())
+					.pattern(" A ").pattern("ABA").pattern(" A ")
+					.define('A', Items.STICK)
+					.define('B', parent.get())
+					.save(pvd);
+		}
+
+		protected static void genColor(RegistrateRecipeProvider pvd, Supplier<? extends ItemLike> parent, Supplier<? extends ItemLike> self, Ingredient dye) {
+			YHRecipeGen.unlock(pvd, ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, self.get(), 8)::unlockedBy, parent.get().asItem())
+					.pattern("AAA").pattern("ABA").pattern("AAA")
+					.define('B', dye)
+					.define('A', parent.get())
+					.save(pvd);
+		}
+
+	}
+
+	public static class WoodSet {
+
+		private final Supplier<Block> base;
+
+		public final BlockEntry<HayStairBlock> STAIR;
+		public final BlockEntry<HaySlabBlock> SLAB;
+		public final BlockEntry<HayTrapDoorBlock> TRAP_DOOR;
+		public final BlockEntry<HayVerticalSlabBlock> VERTICAL;
+
+		public WoodSet(L2Registrate reg, String id, Supplier<Block> base, BlockBehaviour.Properties prop,
+					   ResourceLocation top, ResourceLocation side, ResourceLocation original) {
+			this.base = base;
+			var set = new BlockSetType(id, true, true, true,
+					BlockSetType.PressurePlateSensitivity.EVERYTHING, SoundType.GRASS,
+					SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN,
+					SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN,
+					SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON,
+					SoundEvents.WOODEN_BUTTON_CLICK_OFF, SoundEvents.WOODEN_BUTTON_CLICK_ON);
+			STAIR = reg.block(id + "_stairs", p -> {
+							BlockState baseState = base.get().defaultBlockState();
+							return new HayStairBlock(baseState, prop);
+						})
+					.blockstate((ctx, pvd) -> pvd.stairsBlock(ctx.get(), id, side, top, top))
+					.tag(BlockTags.MINEABLE_WITH_AXE, BlockTags.WOODEN_STAIRS)
+					.item().tag(ItemTags.WOODEN_STAIRS).build()
+					.recipe((ctx, pvd) -> pvd.stairs(DataIngredient.items(base.get()), RecipeCategory.BUILDING_BLOCKS, ctx, null, true))
+					.register();
+			SLAB = reg.block(id + "_slab", p ->
+							new HaySlabBlock(prop))
+					.blockstate((ctx, pvd) -> pvd.slabBlock(ctx.get(),
+							pvd.models().slab(ctx.getName(), side, top, top),
+							pvd.models().slabTop(ctx.getName() + "_top", side, top, top),
+							new ModelFile.UncheckedModelFile(original)))
+					.tag(BlockTags.MINEABLE_WITH_AXE, BlockTags.WOODEN_SLABS)
+					.item().tag(ItemTags.WOODEN_SLABS).build()
+					.recipe((ctx, pvd) -> pvd.slab(DataIngredient.items(base.get()), RecipeCategory.BUILDING_BLOCKS, ctx, null, true))
+					.register();
+			TRAP_DOOR = reg.block(id + "_trap_door", p ->
+							new HayTrapDoorBlock(prop, set))
+					.blockstate((ctx, pvd) -> pvd.trapdoorBlock(ctx.get(), side, true))
+					.tag(BlockTags.MINEABLE_WITH_AXE, BlockTags.WOODEN_TRAPDOORS)
+					.item().model((ctx, pvd) -> pvd.getBuilder(ctx.getName()).parent(
+							new ModelFile.UncheckedModelFile(pvd.modLoc("block/" + id + "_trap_door_bottom"))))
+					.tag(ItemTags.WOODEN_TRAPDOORS).build()
+					.recipe((ctx, pvd) -> pvd.trapDoor(DataIngredient.items(base.get()), RecipeCategory.BUILDING_BLOCKS, ctx, null))
+					.register();
+			VERTICAL = reg.block(id + "_vertical_slab", p ->
+							new HayVerticalSlabBlock(prop))
+					.blockstate((ctx, pvd) -> VerticalSlabBlock.buildBlockState(ctx, pvd, top, side))
+					.tag(YHTagGen.VERTICAL_SLAB, BlockTags.MINEABLE_WITH_AXE).item().build()
+					.recipe((ctx, pvd) -> VerticalSlabBlock.genRecipe(pvd, base, ctx))
+					.register();
+		}
+
+	}
+
+	public static class SikkuiSet {
+
+		public final BlockEntry<Block> BASE;
+		public final BlockEntry<ThinTrapdoorBlock> TRAP_DOOR;
+
+		public SikkuiSet(L2Registrate reg, String id, BlockBehaviour.Properties prop, BlockRecipe builder) {
+			var set = new BlockSetType(id, true, true, true,
+					BlockSetType.PressurePlateSensitivity.EVERYTHING, SoundType.GRAVEL,
+					SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN,
+					SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundEvents.WOODEN_TRAPDOOR_OPEN,
+					SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_OFF, SoundEvents.WOODEN_PRESSURE_PLATE_CLICK_ON,
+					SoundEvents.WOODEN_BUTTON_CLICK_OFF, SoundEvents.WOODEN_BUTTON_CLICK_ON);
+			BASE = reg.block(id, p -> new Block(prop))
+					.blockstate((ctx, pvd) -> pvd.simpleBlock(ctx.get(), pvd.models().cubeAll(ctx.getName(), reg.loc("block/sikkui/" + id))))
+					.tag(YHTagGen.SIKKUI, BlockTags.MINEABLE_WITH_SHOVEL)
+					.simpleItem().recipe(builder).register();
+			TRAP_DOOR = thinTrapdoor(reg, id, prop, set, reg.loc("block/sikkui/" + id), BASE);
+		}
+
+	}
+
+	public static class FullSikkuiSet extends SikkuiSet implements IBlockSet {
+
+		public final BlockEntry<StairBlock> STAIR;
+		public final BlockEntry<SlabBlock> SLAB;
+		public final BlockEntry<VerticalSlabBlock> VERTICAL;
+
+		private final BlockBehaviour.Properties prop;
+		private final String id;
+		private final ResourceLocation side;
+
+		public FullSikkuiSet(L2Registrate reg, String id, BlockBehaviour.Properties prop, BlockRecipe builder) {
+			super(reg, id, prop, builder);
+			this.id = id;
+			this.prop = prop;
+			side = reg.loc("block/sikkui/" + id);
+			STAIR = reg.block(id + "_stairs", p ->
+							new StairBlock(BASE.get().defaultBlockState(), prop))
+					.blockstate((ctx, pvd) -> pvd.stairsBlock(ctx.get(), id, side))
+					.tag(YHTagGen.SIKKUI, BlockTags.MINEABLE_WITH_SHOVEL, BlockTags.MINEABLE_WITH_AXE, BlockTags.STAIRS)
+					.item().tag(ItemTags.STAIRS).build()
+					.recipe((ctx, pvd) -> pvd.stairs(DataIngredient.items(BASE.get()), RecipeCategory.BUILDING_BLOCKS, ctx, null, true))
+					.register();
+			SLAB = reg.block(id + "_slab", p ->
+							new SlabBlock(prop))
+					.blockstate((ctx, pvd) -> pvd.slabBlock(ctx.get(),
+							pvd.models().slab(ctx.getName(), side, side, side),
+							pvd.models().slabTop(ctx.getName() + "_top", side, side, side),
+							new ModelFile.UncheckedModelFile(side)))
+					.tag(YHTagGen.SIKKUI, BlockTags.MINEABLE_WITH_SHOVEL, BlockTags.MINEABLE_WITH_AXE, BlockTags.SLABS)
+					.item().tag(ItemTags.SLABS).build()
+					.recipe((ctx, pvd) -> pvd.slab(DataIngredient.items(BASE.get()), RecipeCategory.BUILDING_BLOCKS, ctx, null, true))
+					.register();
+			VERTICAL = reg.block(id + "_vertical_slab", p ->
+							new VerticalSlabBlock(prop))
+					.blockstate((ctx, pvd) -> VerticalSlabBlock.buildBlockState(ctx, pvd, side, side))
+					.tag(YHTagGen.SIKKUI, YHTagGen.VERTICAL_SLAB, BlockTags.MINEABLE_WITH_SHOVEL, BlockTags.MINEABLE_WITH_AXE).item().build()
+					.recipe((ctx, pvd) -> VerticalSlabBlock.genRecipe(pvd, BASE, ctx))
+					.register();
+		}
+
+		@Override
+		public String getName() {
+			return id;
+		}
+
+		@Override
+		public BlockBehaviour.Properties prop() {
+			return prop;
+		}
+
+		@Override
+		public Holder<Block> base() {
+			return BASE;
+		}
+
+		@Override
+		public Holder<Block> stairs() {
+			return STAIR;
+		}
+
+		@Override
+		public Holder<Block> slab() {
+			return SLAB;
+		}
+
+		@Override
+		public Holder<Block> vertical() {
+			return VERTICAL;
+		}
+
+		@Override
+		public ResourceLocation top() {
+			return side;
+		}
+
+		@Override
+		public ResourceLocation side() {
+			return side;
+		}
+	}
+
+	// MUD_BRICK_STAIRS, BAMBOO_MOSAIC_STAIRS
+	// SANDSTONE_STAIRS, RED_SANDSTONE_STAIRS, SMOOTH_SANDSTONE_STAIRS, SMOOTH_RED_SANDSTONE_STAIRS
+	// QUARTZ_STAIRS, SMOOTH_QUARTZ_STAIRS,
+	// PRISMARINE_STAIRS, PRISMARINE_BRICK_STAIRS, DARK_PRISMARINE_STAIRS
+	// PURPUR_STAIRS, END_STONE_BRICK_STAIRS
+	// copper
+	public enum VanillaStoneSet implements IBlockSet {
+		BAMBOO_MOSAIC(Blocks.BAMBOO_MOSAIC, Blocks.BAMBOO_MOSAIC_SLAB, Blocks.BAMBOO_MOSAIC_STAIRS, true),
+
+		COBBLESTONE(Blocks.COBBLESTONE, Blocks.COBBLESTONE_SLAB, Blocks.COBBLESTONE_STAIRS, true),
+		MOSSY_COBBLESTONE(Blocks.MOSSY_COBBLESTONE, Blocks.MOSSY_COBBLESTONE_SLAB, Blocks.MOSSY_COBBLESTONE_STAIRS, true),
+		COBBLED_DEEPSLATE(Blocks.COBBLED_DEEPSLATE, Blocks.COBBLED_DEEPSLATE_SLAB, Blocks.COBBLED_DEEPSLATE_STAIRS, true),
+
+		BRICK(Blocks.BRICKS, Blocks.BRICK_SLAB, Blocks.BRICK_STAIRS, true),
+		NETHER_BRICK(Blocks.NETHER_BRICKS, Blocks.NETHER_BRICK_SLAB, Blocks.NETHER_BRICK_STAIRS, true),
+		RED_NETHER_BRICK(Blocks.RED_NETHER_BRICKS, Blocks.RED_NETHER_BRICK_SLAB, Blocks.RED_NETHER_BRICK_STAIRS, true),
+		DEEPSLATE_TILES(Blocks.DEEPSLATE_TILES, Blocks.DEEPSLATE_TILE_SLAB, Blocks.DEEPSLATE_TILE_STAIRS, true),
+
+		STONE(Blocks.STONE, Blocks.STONE_SLAB, Blocks.STONE_STAIRS, true),
+		BLACKSTONE(Blocks.BLACKSTONE, Blocks.BLACKSTONE_SLAB, Blocks.BLACKSTONE_STAIRS, false),
+		GRANITE(Blocks.GRANITE, Blocks.GRANITE_SLAB, Blocks.GRANITE_STAIRS, true),
+		ANDESITE(Blocks.ANDESITE, Blocks.ANDESITE_SLAB, Blocks.ANDESITE_STAIRS, true),
+		DIORITE(Blocks.DIORITE, Blocks.DIORITE_SLAB, Blocks.DIORITE_STAIRS, true),
+		TUFF(Blocks.TUFF, Blocks.TUFF_SLAB, Blocks.TUFF_STAIRS, true),
+
+		POLISHED_DEEPSLATE(Blocks.POLISHED_DEEPSLATE, Blocks.POLISHED_DEEPSLATE_SLAB, Blocks.POLISHED_DEEPSLATE_STAIRS, true),
+		POLISHED_BLACKSTONE(Blocks.POLISHED_BLACKSTONE, Blocks.POLISHED_BLACKSTONE_SLAB, Blocks.POLISHED_BLACKSTONE_STAIRS, true),
+		POLISHED_GRANITE(Blocks.POLISHED_GRANITE, Blocks.POLISHED_GRANITE_SLAB, Blocks.POLISHED_GRANITE_STAIRS, true),
+		POLISHED_ANDESITE(Blocks.POLISHED_ANDESITE, Blocks.POLISHED_ANDESITE_SLAB, Blocks.POLISHED_ANDESITE_STAIRS, true),
+		POLISHED_DIORITE(Blocks.POLISHED_DIORITE, Blocks.POLISHED_DIORITE_SLAB, Blocks.POLISHED_DIORITE_STAIRS, true),
+		POLISHED_TUFF(Blocks.POLISHED_TUFF, Blocks.POLISHED_TUFF_SLAB, Blocks.POLISHED_TUFF_STAIRS, true),
+
+		STONE_BRICK(Blocks.STONE_BRICKS, Blocks.STONE_BRICK_SLAB, Blocks.STONE_BRICK_STAIRS, true),
+		MOSSY_STONE_BRICK(Blocks.MOSSY_STONE_BRICKS, Blocks.MOSSY_STONE_BRICK_SLAB, Blocks.MOSSY_STONE_BRICK_STAIRS, true),
+		DEEPSLATE_BRICK(Blocks.DEEPSLATE_BRICKS, Blocks.DEEPSLATE_BRICK_SLAB, Blocks.DEEPSLATE_BRICK_STAIRS, true),
+		POLISHED_BLACKSTONE_BRICK(Blocks.POLISHED_BLACKSTONE_BRICKS, Blocks.POLISHED_BLACKSTONE_BRICK_SLAB, Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS, true),
+		TUFF_BRICK(Blocks.TUFF_BRICKS, Blocks.TUFF_BRICK_SLAB, Blocks.TUFF_BRICK_STAIRS, true),
+		END_STONE_BRICK(Blocks.END_STONE_BRICKS, Blocks.END_STONE_BRICK_SLAB, Blocks.END_STONE_BRICK_STAIRS, true),
+		PURPUR_BLOCK(Blocks.PURPUR_BLOCK, Blocks.PURPUR_SLAB, Blocks.PURPUR_STAIRS, true),
+
+		;
+
+		private final Block base, slab, stair;
+		private final String name;
+		private final ResourceLocation top, side;
+		public BlockEntry<VerticalSlabBlock> vertical;
+
+		VanillaStoneSet(Block base, Block slab, Block stair, boolean uniform) {
+			this.base = base;
+			this.slab = slab;
+			this.stair = stair;
+			this.name = name().toLowerCase(Locale.ROOT);
+			String tex = name.endsWith("brick") ? name + "s" : name;
+			this.side = ResourceLocation.withDefaultNamespace("block/" + tex);
+			this.top = uniform ? side : side.withSuffix("_top");
+		}
+
+		@Override
+		public String getName() {
+			return name;
+		}
+
+		@Override
+		public BlockBehaviour.Properties prop() {
+			return BlockBehaviour.Properties.ofFullCopy(base);
+		}
+
+		@Override
+		public Holder<Block> base() {
+			return base.builtInRegistryHolder();
+		}
+
+		@Override
+		public Holder<Block> stairs() {
+			return stair.builtInRegistryHolder();
+		}
+
+		@Override
+		public Holder<Block> slab() {
+			return slab.builtInRegistryHolder();
+		}
+
+		@Override
+		public Holder<Block> vertical() {
+			return vertical;
+		}
+
+		@Override
+		public ResourceLocation top() {
+			return top;
+		}
+
+		@Override
+		public ResourceLocation side() {
+			return side;
+		}
+	}
+
+	public enum VanillaBlockSet implements IBlockSet {
+		WHITE_CONCRETE(Blocks.WHITE_CONCRETE),
+		ORANGE_CONCRETE(Blocks.ORANGE_CONCRETE),
+		MAGENTA_CONCRETE(Blocks.MAGENTA_CONCRETE),
+		LIGHT_BLUE_CONCRETE(Blocks.LIGHT_BLUE_CONCRETE),
+		YELLOW_CONCRETE(Blocks.YELLOW_CONCRETE),
+		LIME_CONCRETE(Blocks.LIME_CONCRETE),
+		PINK_CONCRETE(Blocks.PINK_CONCRETE),
+		GRAY_CONCRETE(Blocks.GRAY_CONCRETE),
+		LIGHT_GRAY_CONCRETE(Blocks.LIGHT_GRAY_CONCRETE),
+		CYAN_CONCRETE(Blocks.CYAN_CONCRETE),
+		PURPLE_CONCRETE(Blocks.PURPLE_CONCRETE),
+		BLUE_CONCRETE(Blocks.BLUE_CONCRETE),
+		BROWN_CONCRETE(Blocks.BROWN_CONCRETE),
+		GREEN_CONCRETE(Blocks.GREEN_CONCRETE),
+		RED_CONCRETE(Blocks.RED_CONCRETE),
+		BLACK_CONCRETE(Blocks.BLACK_CONCRETE),
+
+		;
+
+		public final Block BASE;
+		public final BlockEntry<StairBlock> STAIR;
+		public final BlockEntry<SlabBlock> SLAB;
+		public final BlockEntry<VerticalSlabBlock> VERTICAL;
+		private final BlockBehaviour.Properties prop;
+		private final String id;
+		private final ResourceLocation side;
+
+		VanillaBlockSet(Block base) {
+			L2Registrate reg = GensokyoLegacy.REGISTRATE;
+			this.id = name().toLowerCase(Locale.ROOT);
+			this.BASE = base;
+			this.prop = BlockBehaviour.Properties.ofFullCopy(base);
+			this.side = ResourceLocation.withDefaultNamespace("block/" + id);
+			STAIR = reg.block(id + "_stairs", p ->
+							new StairBlock(BASE.defaultBlockState(), prop))
+					.blockstate((ctx, pvd) -> pvd.stairsBlock(ctx.get(), id, side))
+					.tag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.STAIRS)
+					.item().tag(ItemTags.STAIRS).build()
+					.recipe((ctx, pvd) -> pvd.stairs(DataIngredient.items(BASE), RecipeCategory.BUILDING_BLOCKS, ctx, null, true))
+					.register();
+			SLAB = reg.block(id + "_slab", p ->
+							new SlabBlock(prop))
+					.blockstate((ctx, pvd) -> pvd.slabBlock(ctx.get(),
+							pvd.models().slab(ctx.getName(), side, side, side),
+							pvd.models().slabTop(ctx.getName() + "_top", side, side, side),
+							new ModelFile.UncheckedModelFile(side)))
+					.tag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.SLABS)
+					.item().tag(ItemTags.SLABS).build()
+					.recipe((ctx, pvd) -> pvd.slab(DataIngredient.items(BASE), RecipeCategory.BUILDING_BLOCKS, ctx, null, true))
+					.register();
+			VERTICAL = reg.block(id + "_vertical_slab", p ->
+							new VerticalSlabBlock(prop))
+					.blockstate((ctx, pvd) -> VerticalSlabBlock.buildBlockState(ctx, pvd, side, side))
+					.tag(BlockTags.MINEABLE_WITH_PICKAXE, YHTagGen.VERTICAL_SLAB).item().build()
+					.recipe((ctx, pvd) -> VerticalSlabBlock.genRecipe(pvd, () -> BASE, ctx))
+					.register();
+		}
+
+		@Override
+		public String getName() {
+			return id;
+		}
+
+		@Override
+		public BlockBehaviour.Properties prop() {
+			return prop;
+		}
+
+		@Override
+		public Holder<Block> base() {
+			return BASE.builtInRegistryHolder();
+		}
+
+		@Override
+		public Holder<Block> stairs() {
+			return STAIR;
+		}
+
+		@Override
+		public Holder<Block> slab() {
+			return SLAB;
+		}
+
+		@Override
+		public Holder<Block> vertical() {
+			return VERTICAL;
+		}
+
+		@Override
+		public ResourceLocation top() {
+			return side;
+		}
+
+		@Override
+		public ResourceLocation side() {
+			return side;
+		}
+	}
+
+	public interface BlockRecipe extends NonNullBiConsumer<DataGenContext<Block, Block>, RegistrateRecipeProvider> {
+	}
+
+}

@@ -1,0 +1,37 @@
+{
+  "parent": "youkaishomecoming:main/welcome_to_gensokyo",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "child": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "youkaishomecoming:boar"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:bred_animals"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.youkaishomecoming.main.breed_boar.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:carrot"
+    },
+    "title": {
+      "translate": "advancements.youkaishomecoming.main.breed_boar.title"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

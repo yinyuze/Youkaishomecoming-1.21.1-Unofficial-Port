@@ -1,0 +1,24 @@
+{
+  "type": "youkaishomecoming:cuisine_mixed",
+  "base": "youkaishomecoming:california_roll",
+  "first": [
+    {
+      "item": "youkaishomecoming:soy_sauce_bottle"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "youkaishomecoming:volcano_roll"
+  },
+  "second": [
+    {
+      "tag": "youkaishomecoming:raw_tuna"
+    },
+    {
+      "item": "youkaishomecoming:otoro"
+    },
+    {
+      "tag": "youkaishomecoming:raw_tuna"
+    }
+  ]
+}

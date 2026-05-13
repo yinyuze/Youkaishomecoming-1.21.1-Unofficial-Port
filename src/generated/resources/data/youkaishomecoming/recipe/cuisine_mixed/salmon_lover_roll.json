@@ -1,0 +1,24 @@
+{
+  "type": "youkaishomecoming:cuisine_mixed",
+  "base": "youkaishomecoming:california_roll",
+  "first": [
+    {
+      "item": "youkaishomecoming:crab_roe"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "youkaishomecoming:salmon_lover_roll"
+  },
+  "second": [
+    {
+      "tag": "c:foods/raw_salmon"
+    },
+    {
+      "tag": "c:foods/raw_salmon"
+    },
+    {
+      "tag": "c:foods/raw_salmon"
+    }
+  ]
+}

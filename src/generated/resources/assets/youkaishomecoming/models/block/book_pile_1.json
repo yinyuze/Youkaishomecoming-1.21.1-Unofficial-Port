@@ -1,0 +1,6 @@
+{
+  "parent": "youkaishomecoming:custom/books_1",
+  "textures": {
+    "books": "youkaishomecoming:block/books"
+  }
+}

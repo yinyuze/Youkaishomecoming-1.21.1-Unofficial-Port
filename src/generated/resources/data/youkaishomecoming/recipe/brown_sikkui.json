@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "minecraft:dirt"
+    },
+    {
+      "item": "minecraft:clay"
+    },
+    {
+      "item": "farmersdelight:straw"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "id": "youkaishomecoming:brown_sikkui"
+  }
+}

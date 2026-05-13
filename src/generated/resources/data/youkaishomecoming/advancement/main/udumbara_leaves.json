@@ -1,0 +1,26 @@
+{
+  "parent": "youkaishomecoming:main/udumbara",
+  "criteria": {
+    "0": {
+      "trigger": "youkaishomecoming:udumbara_leaves"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.youkaishomecoming.main.udumbara_leaves.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "youkaishomecoming:udumbara_seeds"
+    },
+    "title": {
+      "translate": "advancements.youkaishomecoming.main.udumbara_leaves.title"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

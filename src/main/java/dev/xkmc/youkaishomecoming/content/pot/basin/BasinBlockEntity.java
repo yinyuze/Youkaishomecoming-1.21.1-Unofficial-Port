@@ -1,0 +1,114 @@
+package dev.xkmc.youkaishomecoming.content.pot.basin;
+
+import dev.xkmc.l2core.base.tile.BaseBlockEntity;
+import dev.xkmc.l2core.base.tile.BaseContainerListener;
+import dev.xkmc.l2core.base.tile.BaseTank;
+import dev.xkmc.l2modularblock.tile_api.BlockContainer;
+import dev.xkmc.l2serial.serialization.marker.SerialClass;
+import dev.xkmc.l2serial.serialization.marker.SerialField;
+import dev.xkmc.youkaishomecoming.content.pot.base.FluidItemTile;
+import dev.xkmc.youkaishomecoming.init.registrate.YHBlocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+
+@SerialClass
+public class BasinBlockEntity extends BaseBlockEntity implements
+		BlockContainer, BaseContainerListener, FluidItemTile {
+
+	@SerialField
+	public final BasinItemContainer items = new BasinItemContainer().add(this);
+	@SerialField
+	public final BaseTank fluids = new BaseTank(1, 500).add(this);
+
+	public BasinBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
+	}
+
+	@Override
+	public BaseTank getFluidHandler() {
+		return fluids;
+	}
+
+	@Override
+	public SimpleContainer getItemHandler() {
+		return items;
+	}
+
+	public void process() {
+		if (level == null) return;
+		if (level.isClientSide()) return;
+		var cont = new BasinInput(this);
+		var rec = level.getRecipeManager().getRecipeFor(YHBlocks.BASIN_RT.get(), cont, level);
+		if (rec.isEmpty()) return;
+		var ans = rec.get().value().assembleFluid(cont, level.registryAccess());
+		var old = fluids.getFluidInTank(0);
+		if (!old.isEmpty()) {
+			if (!ans.getFluid().isSame(old.getFluid())) return;
+			if (old.getAmount() + ans.getAmount() > fluids.getTankCapacity(0)) return;
+		}
+		ItemStack in = items.getItem(0);
+		ItemStack copy = in.copy();
+		in.shrink(1);
+		fluids.fill(ans, IFluidHandler.FluidAction.EXECUTE);
+		notifyTile();
+		if (level instanceof ServerLevel sl) {
+			var h = fluids.getFluidInTank(0).getAmount() / 1000;
+			var pos = getBlockPos().getCenter();
+			sl.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, copy),
+					pos.x + level.random.nextFloat() * 0.2f - 0.1f,
+					pos.y + Math.max(0.25f, h),
+					pos.z + level.random.nextFloat() * 0.2f - 0.1f,
+					10, 0, 0, 0, 0.05);
+			sl.playSound(null, getBlockPos(), SoundEvents.SLIME_SQUISH, SoundSource.BLOCKS, 0.7f, 2);
+		}
+	}
+
+	@Override
+	public List<Container> getContainers() {
+		return List.of(items);
+	}
+
+	public void dumpInventory() {
+		if (level == null) return;
+		Containers.dropContents(level, this.getBlockPos().above(), items);
+		notifyTile();
+	}
+
+	public void notifyTile() {
+		dev.xkmc.youkaishomecoming.init.GensokyoLegacy.LOGGER.info("BasinBlockEntity.notifyTile called - items: {}, fluid: {}",
+			items.getItem(0), fluids.getFluidInTank(0));
+		setChanged();
+		sync();
+	}
+
+	@Override
+	public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+		super.loadAdditional(tag, provider);
+	}
+
+	@Override
+	public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+		super.saveAdditional(tag, provider);
+	}
+
+}

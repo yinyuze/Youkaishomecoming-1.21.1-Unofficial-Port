@@ -1,0 +1,10 @@
+{
+  "values": [
+    "#minecraft:is_forest",
+    "minecraft:plains",
+    "minecraft:sunflower_plains",
+    "minecraft:meadow",
+    "minecraft:cherry_grove",
+    "#youkaishomecoming:youkai_biomes"
+  ]
+}

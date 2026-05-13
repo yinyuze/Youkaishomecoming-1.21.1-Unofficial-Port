@@ -1,0 +1,26 @@
+{
+  "parent": "youkaishomecoming:main/first_time",
+  "criteria": {
+    "0": {
+      "trigger": "youkaishomecoming:suwako_wear"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.youkaishomecoming.main.suwako_wear.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "youkaishomecoming:straw_hat"
+    },
+    "title": {
+      "translate": "advancements.youkaishomecoming.main.suwako_wear.title"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

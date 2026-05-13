@@ -1,0 +1,21 @@
+{
+  "entries": [
+    "youkaishomecoming:cirno_frozen_frog_cold",
+    "youkaishomecoming:cirno_frozen_frog_warm",
+    "youkaishomecoming:cirno_frozen_frog_temperate",
+    "youkaishomecoming:rumia_scavenging_skeleton_skull",
+    "youkaishomecoming:rumia_scavenging_wither_skeleton_skull",
+    "youkaishomecoming:rumia_scavenging_zombie_head",
+    "youkaishomecoming:rumia_scavenging_creeper_head",
+    "youkaishomecoming:rumia_scavenging_piglin_head",
+    "youkaishomecoming:fishing_lamprey",
+    "youkaishomecoming:fishing_crab",
+    "youkaishomecoming:udumbara_ancient_city_loot",
+    "youkaishomecoming:udumbara_ancient_city_ice_box_loot",
+    "youkaishomecoming:scavenging_flesh",
+    "youkaishomecoming:scavenging_flesh_cooked",
+    "youkaishomecoming:rumia_scavenging_flesh",
+    "youkaishomecoming:rumia_scavenging_flesh_cooked"
+  ],
+  "replace": false
+}

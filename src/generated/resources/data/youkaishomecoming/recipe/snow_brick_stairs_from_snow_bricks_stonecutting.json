@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "youkaishomecoming:snow_bricks"
+  },
+  "result": {
+    "count": 1,
+    "id": "youkaishomecoming:snow_brick_stairs"
+  }
+}

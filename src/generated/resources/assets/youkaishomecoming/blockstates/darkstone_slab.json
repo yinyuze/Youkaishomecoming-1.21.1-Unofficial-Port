@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "youkaishomecoming:block/darkstone_slab"
+    },
+    "type=double": {
+      "model": "youkaishomecoming:block/darkstone"
+    },
+    "type=top": {
+      "model": "youkaishomecoming:block/darkstone_slab_top"
+    }
+  }
+}

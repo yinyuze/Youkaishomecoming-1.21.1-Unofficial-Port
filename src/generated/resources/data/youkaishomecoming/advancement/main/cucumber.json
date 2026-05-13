@@ -1,0 +1,44 @@
+{
+  "parent": "youkaishomecoming:main/welcome_to_gensokyo",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "location": [
+          {
+            "condition": "minecraft:location_check",
+            "predicate": {
+              "block": {
+                "blocks": "#youkaishomecoming:farmland_soybean"
+              }
+            }
+          },
+          {
+            "condition": "minecraft:match_tool",
+            "predicate": {
+              "items": "youkaishomecoming:cucumber_seeds"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:item_used_on_block"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.youkaishomecoming.main.cucumber.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "youkaishomecoming:cucumber_seeds"
+    },
+    "title": {
+      "translate": "advancements.youkaishomecoming.main.cucumber.title"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

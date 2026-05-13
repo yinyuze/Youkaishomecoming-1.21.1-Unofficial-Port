@@ -1,0 +1,28 @@
+{
+  "type": "youkaishomecoming:simple_fermentation",
+  "ingredients": [
+    {
+      "tag": "c:crops/rice"
+    },
+    {
+      "tag": "c:crops/rice"
+    },
+    {
+      "tag": "c:crops/rice"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "minecraft:rabbit_foot"
+    }
+  ],
+  "inputFluid": {},
+  "inputFluidTag": "minecraft:water",
+  "outputFluid": {
+    "amount": 1000,
+    "id": "youkaishomecoming:sparrow_sake"
+  },
+  "results": [],
+  "time": 2400
+}

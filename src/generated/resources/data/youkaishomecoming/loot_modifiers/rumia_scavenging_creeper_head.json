@@ -1,0 +1,16 @@
+{
+  "type": "l2core:add_item",
+  "conditions": [
+    {
+      "condition": "youkaishomecoming:killed_by_rumia"
+    },
+    {
+      "condition": "minecraft:entity_properties",
+      "entity": "this",
+      "predicate": {
+        "type": "#youkaishomecoming:drops_creeper_head"
+      }
+    }
+  ],
+  "item": "minecraft:creeper_head"
+}

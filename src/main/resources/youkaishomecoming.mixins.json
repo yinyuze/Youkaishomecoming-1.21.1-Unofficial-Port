@@ -1,0 +1,21 @@
+{
+	"required": true,
+	"priority": 1000,
+	"package": "dev.xkmc.youkaishomecoming.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"AddItemModifierAccessor",
+		"AddLootTableModifierAccessor",
+		"CookingPotRecipeAccessor",
+		"FrogAttackablesSensorMixin",
+		"LivingEntityMixin",
+		"RandomizableContainerBlockEntityMixin",
+		"ShootTongueMixin"
+	],
+	"client": [
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"minVersion": "0.8"
+}

@@ -1,0 +1,28 @@
+{
+  "type": "youkaishomecoming:simple_fermentation",
+  "ingredients": [
+    {
+      "tag": "c:crops/rice"
+    },
+    {
+      "tag": "c:crops/rice"
+    },
+    {
+      "tag": "c:crops/rice"
+    },
+    {
+      "tag": "c:crops/rice"
+    },
+    {
+      "item": "minecraft:honey_bottle"
+    }
+  ],
+  "inputFluid": {},
+  "inputFluidTag": "minecraft:water",
+  "outputFluid": {
+    "amount": 1000,
+    "id": "youkaishomecoming:mead"
+  },
+  "results": [],
+  "time": 2400
+}

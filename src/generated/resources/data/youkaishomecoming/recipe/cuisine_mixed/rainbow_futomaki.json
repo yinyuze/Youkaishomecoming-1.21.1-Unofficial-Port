@@ -1,0 +1,35 @@
+{
+  "type": "youkaishomecoming:cuisine_mixed",
+  "base": "youkaishomecoming:futomaki",
+  "first": [
+    {
+      "item": "youkaishomecoming:soy_sauce_bottle"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "youkaishomecoming:rainbow_futomaki"
+  },
+  "second": [
+    {
+      "tag": "youkaishomecoming:cucumber_slice"
+    },
+    [
+      {
+        "item": "minecraft:carrot"
+      },
+      {
+        "item": "minecraft:beetroot"
+      }
+    ],
+    {
+      "item": "youkaishomecoming:tamagoyaki_slice"
+    },
+    {
+      "item": "youkaishomecoming:imitation_crab"
+    },
+    {
+      "tag": "c:foods/raw_salmon"
+    }
+  ]
+}

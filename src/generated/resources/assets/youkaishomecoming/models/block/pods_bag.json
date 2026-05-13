@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "youkaishomecoming:block/pods_bag_bottom",
+    "east": "youkaishomecoming:block/pods_bag_side_tied",
+    "north": "youkaishomecoming:block/pods_bag_side",
+    "particle": "youkaishomecoming:block/pods_bag_top",
+    "south": "youkaishomecoming:block/pods_bag_side",
+    "up": "youkaishomecoming:block/pods_bag_top",
+    "west": "youkaishomecoming:block/pods_bag_side_tied"
+  }
+}

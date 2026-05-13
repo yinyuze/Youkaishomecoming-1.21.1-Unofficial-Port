@@ -1,0 +1,7 @@
+{
+  "parent": "youkaishomecoming:custom/utensil/drying_rack",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "rack": "youkaishomecoming:block/utensil/drying_rack"
+  }
+}

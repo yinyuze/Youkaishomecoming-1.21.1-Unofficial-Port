@@ -1,0 +1,7 @@
+{
+  "parent": "youkaishomecoming:block/vertical_slab",
+  "textures": {
+    "side": "youkaishomecoming:block/sikkui/light_yellow_sikkui",
+    "top": "youkaishomecoming:block/sikkui/light_yellow_sikkui"
+  }
+}

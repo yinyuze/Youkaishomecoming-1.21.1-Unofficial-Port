@@ -1,0 +1,7 @@
+{
+  "parent": "youkaishomecoming:block/vertical_slab",
+  "textures": {
+    "side": "youkaishomecoming:block/straw_bale_side",
+    "top": "youkaishomecoming:block/straw_bale_end"
+  }
+}

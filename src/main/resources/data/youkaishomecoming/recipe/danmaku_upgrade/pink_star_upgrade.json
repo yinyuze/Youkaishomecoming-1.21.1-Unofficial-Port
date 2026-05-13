@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    {
+      "item": "danmaku_api:pink_spark_danmaku"
+    },
+    {
+      "item": "danmaku_api:pink_spark_danmaku"
+    },
+    {
+      "item": "danmaku_api:pink_spark_danmaku"
+    },
+    {
+      "item": "danmaku_api:pink_spark_danmaku"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "danmaku_api:pink_star_danmaku"
+  }
+}

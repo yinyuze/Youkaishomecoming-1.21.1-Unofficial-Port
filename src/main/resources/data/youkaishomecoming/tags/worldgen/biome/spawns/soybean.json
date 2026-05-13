@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:dark_forest",
+    "#minecraft:is_jungle",
+    "minecraft:swamp",
+    "minecraft:mangrove_swamp",
+    "#youkaishomecoming:youkai_biomes"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "type": "youkaishomecoming:cuisine_ordered",
+  "base": "youkaishomecoming:hosomaki",
+  "input": [
+    {
+      "item": "youkaishomecoming:soy_sauce_bottle"
+    },
+    {
+      "tag": "youkaishomecoming:cucumber_slice"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "youkaishomecoming:kappa_maki"
+  }
+}

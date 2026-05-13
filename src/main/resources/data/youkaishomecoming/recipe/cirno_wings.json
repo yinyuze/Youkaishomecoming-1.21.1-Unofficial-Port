@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "youkaishomecoming:fairy_ice_crystal"
+    }
+  },
+  "pattern": [
+    "A A",
+    "A A",
+    "A A"
+  ],
+  "result": {
+    "count": 1,
+    "id": "youkaishomecoming:cirno_wings"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "youkaishomecoming:flesh_slice"
+  },
+  "result": {
+    "count": 1,
+    "id": "youkaishomecoming:cooked_flesh_slice"
+  }
+}

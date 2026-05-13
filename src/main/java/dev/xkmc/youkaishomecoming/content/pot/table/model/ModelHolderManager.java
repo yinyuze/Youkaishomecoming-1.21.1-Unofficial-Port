@@ -1,0 +1,31 @@
+package dev.xkmc.youkaishomecoming.content.pot.table.model;
+
+import com.google.gson.JsonObject;
+import dev.xkmc.l2core.init.reg.registrate.L2Registrate;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.loading.FMLEnvironment;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ModelHolderManager {
+
+	public static ModelHolderManager createModelBuilderManager(L2Registrate reg) {
+		if (FMLEnvironment.dist == Dist.CLIENT) {
+			return new ClientModelManager(reg);
+		}
+		return new ModelHolderManager(reg);
+	}
+
+	protected final L2Registrate owner;
+	protected List<TableModelHolder> models = new ArrayList<>();
+
+	ModelHolderManager(L2Registrate reg) {
+		this.owner = reg;
+	}
+
+	public void register(TableModelHolder builder) {
+		models.add(builder);
+	}
+
+}

@@ -1,0 +1,13 @@
+{
+  "criteria": {
+    "koishi_first": {
+      "trigger": "youkaishomecoming:koishi_first"
+    }
+  },
+  "requirements": [
+    [
+      "koishi_first"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

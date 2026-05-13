@@ -1,0 +1,59 @@
+package dev.xkmc.youkaishomecoming.content.pot.table.food;
+
+import dev.xkmc.youkaishomecoming.content.pot.table.item.IngredientTableItem;
+import dev.xkmc.youkaishomecoming.content.pot.table.item.TableItemManager;
+import dev.xkmc.youkaishomecoming.content.pot.table.model.FixedModelHolder;
+import dev.xkmc.youkaishomecoming.init.GensokyoLegacy;
+import dev.xkmc.youkaishomecoming.init.data.TagRef;
+import dev.xkmc.youkaishomecoming.init.data.YHTagGen;
+import net.minecraft.resources.ResourceLocation;
+
+public class TableBambooBowls {
+
+	private static FixedModelHolder bamboo(String id, String parent) {
+		return new FixedModelHolder(TableItemManager.MANAGER,
+				GensokyoLegacy.loc("bamboo/" + id),
+				GensokyoLegacy.loc("table/bamboo/" + parent),
+				GensokyoLegacy.loc("block/table/bamboo/"))
+				.putDefault("in", "out");
+	}
+
+	private static FixedModelHolder complete(String id) {
+		return new FixedModelHolder(TableItemManager.MANAGER,
+				GensokyoLegacy.loc("bamboo/" + id),
+				GensokyoLegacy.loc("table/bamboo/complete"),
+				GensokyoLegacy.loc("block/table/bamboo/"))
+				.put("bamboo", GensokyoLegacy.loc("block/bowl/bamboo/raw_bamboo"));
+	}
+
+
+	private static FixedModelHolder bamboo(String id) {
+		return bamboo(id, id);
+	}
+
+	private static FixedModelHolder fill(String id, int layer) {
+		return bamboo(id, "filled_" + layer).put("base", id);
+	}
+
+	public static final IngredientTableItem BAMBOO = TableItemManager.TABLE.with(bamboo("base"), YHTagGen.BAMBOO);
+	public static final IngredientTableItem RICE = BAMBOO.with(fill("rice", 1), TagRef.GRAIN_RICE);
+	public static final IngredientTableItem SOYBEAN = BAMBOO.with(fill("soybean", 1), YHTagGen.SOYBEAN);
+	public static final IngredientTableItem CARROT = BAMBOO.with(fill("carrot", 1), YHTagGen.CARROT);
+
+	public static final ResourceLocation TUTU_CONGEE = RICE.addNext(complete("tutu_congee")).register();
+
+	public static final ResourceLocation RICE_POWDER_PORK = SOYBEAN
+			.with(fill("soy_pork", 2), TagRef.RAW_PORK)
+			.with(fill("rice_powder_pork_3", 3), TagRef.GRAIN_RICE)
+			.addNext(complete("rice_powder_pork")).register();
+
+	public static final ResourceLocation KAGUYA_HIME = CARROT
+			.with(fill("carrot_mushroom", 2), YHTagGen.BROWN_MUSHROOM)
+			.with(fill("kaguya_hime_3", 3), TagRef.VEGETABLES_ONION)
+			.with(fill("kaguya_hime_4", 3), TagRef.GRAIN_RICE)
+			.addNext(complete("kaguya_hime")).register();
+
+	public static void init() {
+	}
+
+}

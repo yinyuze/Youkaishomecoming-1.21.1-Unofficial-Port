@@ -1,0 +1,26 @@
+{
+  "parent": "youkaishomecoming:main/grape_cut",
+  "criteria": {
+    "0": {
+      "trigger": "youkaishomecoming:grape_harvest"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.youkaishomecoming.main.grape_harvest.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "youkaishomecoming:red_grape"
+    },
+    "title": {
+      "translate": "advancements.youkaishomecoming.main.grape_harvest.title"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

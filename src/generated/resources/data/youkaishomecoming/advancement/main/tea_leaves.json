@@ -1,0 +1,33 @@
+{
+  "parent": "youkaishomecoming:main/tea",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "items": [
+          {
+            "items": "youkaishomecoming:tea_leaves"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.youkaishomecoming.main.tea_leaves.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "youkaishomecoming:tea_leaves"
+    },
+    "title": {
+      "translate": "advancements.youkaishomecoming.main.tea_leaves.title"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

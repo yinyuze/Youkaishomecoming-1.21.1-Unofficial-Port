@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_darkstone_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "youkaishomecoming:darkstone_bricks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "youkaishomecoming:darkstone_brick_vertical_slab_from_darkstone_bricks_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_darkstone_bricks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "youkaishomecoming:darkstone_brick_vertical_slab_from_darkstone_bricks_stonecutting"
+    ]
+  }
+}

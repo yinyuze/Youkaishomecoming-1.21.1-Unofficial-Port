@@ -1,0 +1,24 @@
+{
+  "type": "youkaishomecoming:cuisine_mixed",
+  "base": "youkaishomecoming:california",
+  "first": [
+    {
+      "item": "youkaishomecoming:mayonnaise_bottle"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "youkaishomecoming:california_roll"
+  },
+  "second": [
+    {
+      "tag": "youkaishomecoming:cucumber_slice"
+    },
+    {
+      "item": "youkaishomecoming:tamagoyaki_slice"
+    },
+    {
+      "item": "youkaishomecoming:imitation_crab"
+    }
+  ]
+}

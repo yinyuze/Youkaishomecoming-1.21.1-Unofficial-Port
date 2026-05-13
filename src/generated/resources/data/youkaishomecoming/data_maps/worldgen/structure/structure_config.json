@@ -1,0 +1,35 @@
+{
+  "values": {
+    "youkaishomecoming:cirno_nest": {
+      "entities": [],
+      "floorHouseShrink": 0,
+      "floorRoomShrink": 1,
+      "primaryFix": "youkaishomecoming:structure_fix/cirno_nest/primary",
+      "topHouseShrink": 0,
+      "topRoomShrink": 2,
+      "wouldFix": "youkaishomecoming:structure_fix/cirno_nest/would_fix",
+      "xzHouseShrink": 0,
+      "xzRoomShrink": 2
+    },
+    "youkaishomecoming:hakurei_shrine": {
+      "entities": [],
+      "floorHouseShrink": 0,
+      "floorRoomShrink": 1,
+      "primaryFix": "youkaishomecoming:structure_fix/hakurei_shrine/primary",
+      "topHouseShrink": 0,
+      "topRoomShrink": 2,
+      "wouldFix": "youkaishomecoming:structure_fix/hakurei_shrine/would_fix",
+      "xzHouseShrink": 0,
+      "xzRoomShrink": 2
+    },
+    "youkaishomecoming:youkai_nest": {
+      "entities": [],
+      "floorHouseShrink": 0,
+      "floorRoomShrink": 1,
+      "topHouseShrink": 0,
+      "topRoomShrink": 2,
+      "xzHouseShrink": 0,
+      "xzRoomShrink": 2
+    }
+  }
+}

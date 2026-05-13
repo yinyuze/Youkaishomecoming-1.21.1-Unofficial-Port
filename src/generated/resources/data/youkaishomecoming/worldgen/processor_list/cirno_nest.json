@@ -1,0 +1,17 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:protected_blocks",
+      "value": "#minecraft:features_cannot_replace"
+    },
+    {
+      "map": {
+        "farmersdelight:spruce_cabinet": {
+          "type": "minecraft:append_loot",
+          "loot_table": "youkaishomecoming:chests/cirno_nest/cabinet"
+        }
+      },
+      "processor_type": "youkaishomecoming:set_data"
+    }
+  ]
+}

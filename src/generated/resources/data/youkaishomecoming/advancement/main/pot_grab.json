@@ -1,0 +1,26 @@
+{
+  "parent": "youkaishomecoming:main/small_pot",
+  "criteria": {
+    "0": {
+      "trigger": "youkaishomecoming:pot_grab"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.youkaishomecoming.main.pot_grab.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "youkaishomecoming:power_soup"
+    },
+    "title": {
+      "translate": "advancements.youkaishomecoming.main.pot_grab.title"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

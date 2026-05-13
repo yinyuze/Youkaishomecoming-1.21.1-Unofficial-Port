@@ -1,0 +1,26 @@
+{
+  "parent": "youkaishomecoming:main/powerful_being",
+  "criteria": {
+    "0": {
+      "trigger": "youkaishomecoming:trade_danmaku"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.youkaishomecoming.main.trade_danmaku.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "youkaishomecoming:flesh_chocolate_mousse"
+    },
+    "title": {
+      "translate": "advancements.youkaishomecoming.main.trade_danmaku.title"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

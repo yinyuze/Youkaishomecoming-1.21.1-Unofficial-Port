@@ -1,0 +1,18 @@
+{
+  "type": "youkaishomecoming:moka_pot",
+  "container": {
+    "count": 1,
+    "id": "minecraft:glass_bottle"
+  },
+  "experience": 0.1,
+  "ingredients": [
+    {
+      "item": "youkaishomecoming:coffee_powder"
+    }
+  ],
+  "recipe_book_tab": "drinks",
+  "result": {
+    "count": 1,
+    "id": "youkaishomecoming:espresso"
+  }
+}

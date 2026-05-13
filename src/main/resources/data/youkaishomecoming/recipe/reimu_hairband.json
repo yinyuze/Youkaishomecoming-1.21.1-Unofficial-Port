@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "1": {
+      "item": "youkaishomecoming:spell_reimu"
+    },
+    "2": {
+      "tag": "danmaku_api:preset_spell"
+    },
+    "A": {
+      "item": "youkaishomecoming:rumia_hairband"
+    }
+  },
+  "pattern": [
+    " 1 ",
+    "2A2"
+  ],
+  "result": {
+    "count": 1,
+    "id": "youkaishomecoming:reimu_hairband"
+  },
+  "show_notification": true
+}

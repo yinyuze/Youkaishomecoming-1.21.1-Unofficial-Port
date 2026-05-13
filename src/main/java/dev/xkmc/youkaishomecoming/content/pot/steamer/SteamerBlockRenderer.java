@@ -1,0 +1,70 @@
+package dev.xkmc.youkaishomecoming.content.pot.steamer;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import dev.xkmc.youkaishomecoming.content.block.food.ISteamerContentBlock;
+import dev.xkmc.youkaishomecoming.content.item.food.FoodBlockItem;
+import dev.xkmc.youkaishomecoming.util.FluidRenderer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+
+public class SteamerBlockRenderer implements BlockEntityRenderer<SteamerBlockEntity> {
+
+	private final ItemRenderer itemRenderer;
+
+	public SteamerBlockRenderer(BlockEntityRendererProvider.Context pContext) {
+		this.itemRenderer = pContext.getItemRenderer();
+	}
+
+	@Override
+	public void render(SteamerBlockEntity be, float pTick, PoseStack pose, MultiBufferSource buffer, int light, int overlay) {
+		RackInfo info = RackInfo.getRackInfo(be.getBlockState());
+		if (info.pot() && be.getBlockState().getValue(SteamerStates.WATER)) {
+			FluidRenderer.renderWaterBox(4 / 16f, 1 / 16f, 4 / 16f, 12 / 16f, 7f / 16f, 12 / 16f, buffer, pose, light, 0);
+		}
+		if (info.racks() == 0 || be.racks.isEmpty() || info.racks() > be.racks.size()) return;
+		RackData rack = be.racks.get(info.racks() - 1);
+		if (rack.list[0] != null && rack.list[0].stack.getItem() instanceof FoodBlockItem item) {
+			pose.pushPose();
+			BlockState state = item.getBlock().defaultBlockState();
+			state = state.setValue(BlockStateProperties.HORIZONTAL_FACING, state.getValue(BlockStateProperties.HORIZONTAL_FACING));
+			pose.translate(.5f, (info.height() * 4 - 3) / 16f, .5f);
+			if (item.getBlock() instanceof ISteamerContentBlock block) {
+				float width = 16 - block.clearance() * 2;
+				float s = 8f / width;
+				pose.scale(s, s, s);
+			}
+			pose.translate(-.5f, 0, -.5f);
+			this.itemRenderer.renderStatic(rack.list[0].stack, ItemDisplayContext.FIXED, light, overlay, pose, buffer, be.getLevel(), (int) be.getBlockPos().asLong());
+			pose.popPose();
+			return;
+		}
+		int i = (int) be.getBlockPos().asLong();
+		for (int j = 0; j < rack.list.length; ++j) {
+			var data = rack.list[j];
+			if (data == null) continue;
+			ItemStack stack = data.stack;
+			if (stack.isEmpty()) continue;
+			pose.pushPose();
+			pose.translate(0.5F, (info.height() * 4 - 2.8) / 16f, 0.5F);
+			Direction rot = Direction.from2DDataValue(j % 4);
+			pose.mulPose(Axis.YP.rotationDegrees(-rot.toYRot()));
+			pose.mulPose(Axis.XP.rotationDegrees(90.0F));
+			float dist = 2f / 16;
+			float scale = 5f / 16;
+			pose.translate(-dist, -dist, 0.0F);
+			pose.scale(scale, scale, scale);
+			this.itemRenderer.renderStatic(stack, ItemDisplayContext.FIXED, light, overlay, pose, buffer, be.getLevel(), i + j);
+			pose.popPose();
+		}
+	}
+
+}

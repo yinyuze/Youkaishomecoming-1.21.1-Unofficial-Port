@@ -1,0 +1,13 @@
+{
+  "type": "youkaishomecoming:cuisine_ordered",
+  "base": "youkaishomecoming:sushi",
+  "input": [
+    {
+      "tag": "c:foods/safe_raw_fish"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "id": "farmersdelight:cod_roll"
+  }
+}

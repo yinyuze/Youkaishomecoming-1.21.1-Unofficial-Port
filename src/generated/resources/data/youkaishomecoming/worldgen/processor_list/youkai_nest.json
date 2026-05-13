@@ -1,0 +1,21 @@
+{
+  "processors": [
+    {
+      "processor_type": "minecraft:protected_blocks",
+      "value": "#minecraft:features_cannot_replace"
+    },
+    {
+      "map": {
+        "minecraft:barrel": {
+          "type": "minecraft:append_loot",
+          "loot_table": "youkaishomecoming:chests/youkai_nest/barrel"
+        },
+        "minecraft:chest": {
+          "type": "minecraft:append_loot",
+          "loot_table": "youkaishomecoming:chests/youkai_nest/chest"
+        }
+      },
+      "processor_type": "youkaishomecoming:set_data"
+    }
+  ]
+}

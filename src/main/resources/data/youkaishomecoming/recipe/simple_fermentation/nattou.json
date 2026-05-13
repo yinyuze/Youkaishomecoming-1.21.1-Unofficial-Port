@@ -1,0 +1,35 @@
+{
+  "type": "youkaishomecoming:simple_fermentation",
+  "ingredients": [
+    {
+      "tag": "youkaishomecoming:soybean"
+    },
+    {
+      "tag": "youkaishomecoming:soybean"
+    },
+    {
+      "tag": "youkaishomecoming:soybean"
+    },
+    {
+      "tag": "youkaishomecoming:soybean"
+    },
+    {
+      "tag": "youkaishomecoming:soybean"
+    },
+    {
+      "tag": "youkaishomecoming:soybean"
+    },
+    {
+      "item": "farmersdelight:straw"
+    }
+  ],
+  "inputFluid": {},
+  "outputFluid": {},
+  "results": [
+    {
+      "count": 6,
+      "id": "youkaishomecoming:nattou"
+    }
+  ],
+  "time": 1800
+}

@@ -1,0 +1,53 @@
+package dev.xkmc.youkaishomecoming.content.pot.cooking.soup;
+
+import dev.xkmc.l2core.serial.recipe.BaseRecipe;
+import dev.xkmc.l2serial.serialization.marker.SerialClass;
+import dev.xkmc.l2serial.serialization.marker.SerialField;
+import dev.xkmc.youkaishomecoming.content.pot.cooking.core.CookingInv;
+import dev.xkmc.youkaishomecoming.init.GensokyoLegacy;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+
+import java.util.List;
+
+@SerialClass
+public abstract class SoupBaseRecipe<T extends SoupBaseRecipe<T>> extends BaseRecipe<T, SoupBaseRecipe<?>, CookingInv> {
+
+	public static final ResourceLocation DEF = GensokyoLegacy.loc("water");
+
+	@SerialField
+	public ResourceLocation id = DEF;
+	@SerialField
+	public int color = -1;
+	@SerialField
+	public int time = 0;
+
+	public SoupBaseRecipe(RecType<T, SoupBaseRecipe<?>, CookingInv> fac) {
+		super(fac);
+	}
+
+	public abstract int getIngredientCount();
+
+	public abstract void removeConsumed(List<ItemStack> list);
+
+	@Override
+	public boolean canCraftInDimensions(int i, int i1) {
+		return false;
+	}
+
+	@Override
+	public ItemStack assemble(CookingInv cookingInv, HolderLookup.Provider registryAccess) {
+		return ItemStack.EMPTY;
+	}
+
+	@Override
+	public ItemStack getResultItem(HolderLookup.Provider registryAccess) {
+		return ItemStack.EMPTY;
+	}
+
+	public ItemStack getResult() {
+		return ItemStack.EMPTY;
+	}
+
+}

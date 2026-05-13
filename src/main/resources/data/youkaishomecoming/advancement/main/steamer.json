@@ -1,0 +1,30 @@
+{
+  "parent": "youkaishomecoming:main/welcome_to_gensokyo",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "item": {},
+        "rack": {}
+      },
+      "trigger": "youkaishomecoming:steam"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.youkaishomecoming.main.steamer.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "youkaishomecoming:steamer_pot"
+    },
+    "title": {
+      "translate": "advancements.youkaishomecoming.main.steamer.title"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

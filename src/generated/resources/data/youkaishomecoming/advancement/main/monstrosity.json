@@ -1,0 +1,32 @@
+{
+  "parent": "youkaishomecoming:main/bloody",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "item": {
+          "items": "youkaishomecoming:bowl_of_flesh_feast"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.youkaishomecoming.main.monstrosity.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "youkaishomecoming:bowl_of_flesh_feast"
+    },
+    "title": {
+      "translate": "advancements.youkaishomecoming.main.monstrosity.title"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

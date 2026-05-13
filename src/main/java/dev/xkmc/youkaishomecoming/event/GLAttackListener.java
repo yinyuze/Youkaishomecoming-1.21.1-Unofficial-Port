@@ -1,0 +1,48 @@
+package dev.xkmc.youkaishomecoming.event;
+
+import dev.xkmc.danmakuapi.init.data.DanmakuDamageTypes;
+import dev.xkmc.youkaishomecoming.compat.curios.CuriosCompat;
+import dev.xkmc.youkaishomecoming.content.entity.youkai.YoukaiEntity;
+import dev.xkmc.youkaishomecoming.content.item.character.TouhouHatItem;
+import dev.xkmc.youkaishomecoming.init.GensokyoLegacy;
+import dev.xkmc.youkaishomecoming.init.data.GLModConfig;
+import dev.xkmc.l2damagetracker.contents.attack.AttackListener;
+import dev.xkmc.l2damagetracker.contents.attack.DamageData;
+import dev.xkmc.l2damagetracker.contents.attack.DamageModifier;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.neoforged.fml.ModList;
+
+public class GLAttackListener implements AttackListener {
+
+    @Override
+    public void onDamage(DamageData.Defence data) {
+        if (data.getSource().is(DanmakuDamageTypes.DANMAKU) && data.getSource().getEntity() instanceof YoukaiEntity) {
+            LivingEntity le = data.getTarget();
+            double min = le instanceof Player ?
+                    GLModConfig.SERVER.danmakuPlayerPHPDamage.get() :
+                    GLModConfig.SERVER.danmakuMinPHPDamage.get();
+            data.addDealtModifier(DamageModifier.nonlinearMiddle(460,
+                    f -> Math.max(f, le.getMaxHealth() * (float) min),
+                    GensokyoLegacy.loc("youkai_damage")
+            ));
+        }
+    }
+
+    @Override
+    public void onDamageFinalized(DamageData.DefenceMax data) {
+        var attacker = data.getAttacker();
+        if (attacker == null) return;
+        ItemStack head = attacker.getItemBySlot(EquipmentSlot.HEAD);
+        if (head.getItem() instanceof TouhouHatItem hat) {
+            hat.onHurtTarget(head, data.getSource(), data.getTarget());
+            return;
+        }
+        if (attacker instanceof Player player && ModList.get().isLoaded("curios")) {
+            CuriosCompat.applyOnHurtFromCurios(player, data);
+        }
+    }
+
+}

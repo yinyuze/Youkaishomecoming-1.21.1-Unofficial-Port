@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#youkaishomecoming:spawns/deer",
+  "spawners": {
+    "type": "youkaishomecoming:deer",
+    "maxCount": 3,
+    "minCount": 2,
+    "weight": 14
+  }
+}

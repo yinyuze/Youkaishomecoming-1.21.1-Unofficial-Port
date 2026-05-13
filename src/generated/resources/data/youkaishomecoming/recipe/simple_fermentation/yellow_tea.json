@@ -1,0 +1,22 @@
+{
+  "type": "youkaishomecoming:simple_fermentation",
+  "ingredients": [
+    {
+      "tag": "c:tea_leaves/green"
+    },
+    {
+      "tag": "c:tea_leaves/green"
+    },
+    {
+      "item": "minecraft:dandelion"
+    }
+  ],
+  "inputFluid": {},
+  "inputFluidTag": "minecraft:water",
+  "outputFluid": {
+    "amount": 1000,
+    "id": "youkaishomecoming:yellow_tea"
+  },
+  "results": [],
+  "time": 1800
+}

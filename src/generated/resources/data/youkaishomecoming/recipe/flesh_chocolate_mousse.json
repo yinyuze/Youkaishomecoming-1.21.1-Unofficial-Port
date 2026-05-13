@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:milk_bucket"
+    },
+    "C": {
+      "item": "minecraft:glass_bottle"
+    },
+    "D": {
+      "tag": "youkaishomecoming:raw_flesh"
+    },
+    "E": {
+      "item": "minecraft:wheat"
+    },
+    "F": {
+      "item": "minecraft:cocoa_beans"
+    }
+  },
+  "pattern": [
+    " B ",
+    "FDF",
+    "ECE"
+  ],
+  "result": {
+    "count": 4,
+    "id": "youkaishomecoming:flesh_chocolate_mousse"
+  }
+}
