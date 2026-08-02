@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "tag": "youkaishomecoming:raw_flesh"
+    },
+    "S": {
+      "item": "minecraft:skeleton_skull"
+    },
+    "1": {
+      "item": "minecraft:carrot"
+    },
+    "2": {
+      "item": "minecraft:brown_mushroom"
+    },
+    "3": {
+      "tag": "c:foods/onion"
+    },
+    "4": {
+      "tag": "c:foods/cabbage"
+    }
+  },
+  "pattern": [
+    "FFF",
+    "1F2",
+    "3S4"
+  ],
+  "result": {
+    "count": 1,
+    "id": "youkaishomecoming:raw_flesh_feast"
+  },
+  "show_notification": true
+}

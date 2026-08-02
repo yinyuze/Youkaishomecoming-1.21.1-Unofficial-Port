@@ -2,6 +2,7 @@
 	"required": false,
 	"priority": 2000,
 	"package": "dev.xkmc.youkaishomecoming.mixin",
+	"plugin": "dev.xkmc.youkaishomecoming.mixin.TLMMixinPlugin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"TLMCommonRegistryMixin",

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "food",
+  "ingredients": [
+    {
+      "tag": "youkaishomecoming:raw_flesh"
+    },
+    {
+      "tag": "youkaishomecoming:raw_flesh"
+    },
+    {
+      "item": "youkaishomecoming:soy_sauce_bottle"
+    },
+    {
+      "item": "youkaishomecoming:saucer"
+    },
+    {
+      "tag": "c:foods/cabbage"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "youkaishomecoming:bloody_flesh"
+  }
+}

@@ -6,8 +6,13 @@ import com.tterrag.registrate.util.nullness.NonNullFunction;
 import dev.xkmc.l2core.init.reg.simple.DCReg;
 import dev.xkmc.l2core.init.reg.simple.DCVal;
 import dev.xkmc.youkaishomecoming.content.block.food.EmptySaucerBlock;
+import dev.xkmc.youkaishomecoming.content.block.food.FleshFeastBlock;
+import dev.xkmc.youkaishomecoming.content.block.food.FleshSaucerBlock;
 import dev.xkmc.youkaishomecoming.content.block.food.SurpriseChestBlock;
 import dev.xkmc.youkaishomecoming.content.block.food.SurpriseFeastBlock;
+import dev.xkmc.youkaishomecoming.content.item.food.FleshBlockItem;
+import dev.xkmc.youkaishomecoming.content.item.food.FleshSaucerItem;
+import dev.xkmc.youkaishomecoming.content.item.food.FleshSimpleItem;
 import dev.xkmc.youkaishomecoming.content.item.character.*;
 import dev.xkmc.youkaishomecoming.content.item.ingredient.FairyIceItem;
 import dev.xkmc.youkaishomecoming.content.item.ingredient.FrozenFrogItem;
@@ -69,6 +74,9 @@ public class YHItems {
 
 	public static final BlockEntry<SurpriseChestBlock> SURP_CHEST;
 	public static final BlockEntry<SurpriseFeastBlock> SURP_FEAST;
+	public static final ItemEntry<FleshSimpleItem> RAW_FLESH_FEAST;
+	public static final BlockEntry<FleshFeastBlock> FLESH_FEAST;
+	public static final BlockEntry<FleshSaucerBlock> BLOODY_FLESH;
 	public static final CakeEntry TARTE_LUNE, RED_VELVET;
 	public static final BlockEntry<EmptySaucerBlock> SAUCER;
 	public static final ItemEntry<MobBucketItem> LAMPREY_BUCKET, TUNA_BUCKET, CRAB_BUCKET;
@@ -170,6 +178,24 @@ public class YHItems {
 									YHFood.BOWL_OF_HEART_THROBBING_SURPRISE.item))
 					.blockstate(SurpriseFeastBlock::buildModel)
 					.loot(SurpriseFeastBlock::builtLoot)
+					.register();
+
+			RAW_FLESH_FEAST = reg.item("raw_flesh_feast", FleshSimpleItem::new)
+					.properties(p -> p.stacksTo(1))
+					.register();
+
+			FLESH_FEAST = reg.block("flesh_feast", p ->
+							new FleshFeastBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BROWN_WOOL),
+									YHFood.BOWL_OF_FLESH_FEAST.item))
+					.item(FleshBlockItem::new).properties(p -> p.stacksTo(1)).build()
+					.register();
+
+			BLOODY_FLESH = reg.block("bloody_flesh", p ->
+							new FleshSaucerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LIGHT_GRAY_WOOL), 3))
+					.item((b, p) -> new FleshSaucerItem(b, p.food(
+							new net.minecraft.world.food.FoodProperties.Builder()
+									.nutrition(6).saturationModifier(0.8f).build())))
+					.build()
 					.register();
 
 			TARTE_LUNE = new CakeEntry(reg, "tarte_lune", MapColor.COLOR_PURPLE, FoodType.SIMPLE, 4, 0.6f, false);

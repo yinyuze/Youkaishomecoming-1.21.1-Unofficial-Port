@@ -222,7 +222,7 @@ public class GLAdvGen {
         youkai.create("bloody", YHItems.BLOOD_BOTTLE.asStack(1),
                         CriterionBuilder.item(YHItems.BLOOD_BOTTLE.item.get()),
                         "Bloody!", "Get a Blood Bottle")
-                .create("monstrosity", YHFood.BOWL_OF_FLESH_FEAST.item.asStack(),
+                .create("monstrosity", YHItems.FLESH_FEAST.asStack(),
                         CriterionBuilder.one(ConsumeItemTrigger.TriggerInstance.usedItem(YHFood.BOWL_OF_FLESH_FEAST.item.get())),
                         "Monstrosity", "Eat a bowl of flesh feast")
                 .type(AdvancementType.GOAL, true, true, false);

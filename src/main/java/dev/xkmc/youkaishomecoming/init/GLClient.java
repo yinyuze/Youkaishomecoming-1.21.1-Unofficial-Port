@@ -1,6 +1,5 @@
 package dev.xkmc.youkaishomecoming.init;
 
-import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
 import dev.xkmc.youkaishomecoming.compat.touhoulittlemaid.TLMRenderHandler;
 import dev.xkmc.youkaishomecoming.content.client.debug.DebugOverlay;
 import dev.xkmc.youkaishomecoming.content.client.model.*;
@@ -41,7 +40,10 @@ public class GLClient {
 
 	@SubscribeEvent
 	public static void clientSetup(FMLClientSetupEvent event) {
-		if (ModList.get().isLoaded(TouhouLittleMaid.MOD_ID)) {
+		// Use the string mod id (not TouhouLittleMaid.MOD_ID) so this early check does not
+		// itself pull in a TLM class on the modloading-worker thread. On Windows 10 that
+		// races with TLM's own GlWrapper class init and causes intermittent startup failures.
+		if (ModList.get().isLoaded("touhou_little_maid")) {
 			NeoForge.EVENT_BUS.register(TLMRenderHandler.class);
 		}
 		if (ModList.get().isLoaded("curios")) {
@@ -77,7 +79,7 @@ public class GLClient {
 
 	@SubscribeEvent
 	public static void addLayer(EntityRenderersEvent.AddLayers event) {
-		if (ModList.get().isLoaded(TouhouLittleMaid.MOD_ID)) {
+		if (ModList.get().isLoaded("touhou_little_maid")) {
 			TLMRenderHandler.addLayers(event);
 		}
 		if (event.getRenderer(EntityType.FROG) instanceof FrogRenderer r) {

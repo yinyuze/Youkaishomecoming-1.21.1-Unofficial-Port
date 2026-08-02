@@ -523,6 +523,24 @@ public class YHRecipeGen {
 					.define('F', Items.COCOA_BEANS)
 					.save(pvd);
 
+			unlock(pvd, ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, YHItems.RAW_FLESH_FEAST.get(), 1)::unlockedBy, YHFood.FLESH.item.get())
+					.pattern("FFF").pattern("1F2").pattern("3S4")
+					.define('F', YHTagGen.RAW_FLESH)
+					.define('S', Items.SKELETON_SKULL)
+					.define('1', Items.CARROT)
+					.define('2', Items.BROWN_MUSHROOM)
+					.define('3', CommonTags.FOODS_ONION)
+					.define('4', CommonTags.FOODS_CABBAGE)
+					.save(pvd);
+
+			unlock(pvd, ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, YHItems.BLOODY_FLESH.get())::unlockedBy, YHItems.SAUCER.asItem())
+					.requires(YHTagGen.RAW_FLESH)
+					.requires(YHTagGen.RAW_FLESH)
+					.requires(YHItems.SOY_SAUCE_BOTTLE.item.get())
+					.requires(YHItems.SAUCER.get())
+					.requires(CommonTags.FOODS_CABBAGE)
+					.save(pvd);
+
 			cookSave(CookingPotRecipeBuilder.cookingPotRecipe(YHFood.FLESH_DUMPLINGS.item.get(), 2, 200, 0.1f)
 					.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
 					.addIngredient(CommonTags.FOODS_DOUGH)
@@ -544,13 +562,14 @@ public class YHRecipeGen {
 					.addIngredient(Items.CARROT)
 					.addIngredient(YHItems.SOY_SAUCE_BOTTLE.item), pvd);
 
-			cookSave(CookingPotRecipeBuilder.cookingPotRecipe(YHFood.BOWL_OF_FLESH_FEAST.item.get(), 1, 200, 0.1f, Items.BOWL)
+			// Flesh feast: cook via flesh_feast block, not directly.
+			cookSave(CookingPotRecipeBuilder.cookingPotRecipe(YHItems.FLESH_FEAST.get(), 1, 200, 0.1f, Items.BOWL)
 					.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
+					.addIngredient(YHItems.RAW_FLESH_FEAST.get())
 					.addIngredient(YHTagGen.RAW_FLESH)
-					.addIngredient(YHTagGen.RAW_FLESH)
-					.addIngredient(YHTagGen.RAW_FLESH)
-					.addIngredient(YHTagGen.RAW_FLESH)
-					.addIngredient(YHItems.SOY_SAUCE_BOTTLE.item), pvd);
+					.addIngredient(YHItems.BLOOD_BOTTLE.item.get())
+					.addIngredient(YHItems.BLOOD_BOTTLE.item.get())
+					.addIngredient(YHItems.SOY_SAUCE_BOTTLE.item.get()), pvd);
 
 			cookSave(CookingPotRecipeBuilder.cookingPotRecipe(YHFood.MITARASHI_DANGO.item.get(), 1, 200, 0.1f, Items.STICK)
 					.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)

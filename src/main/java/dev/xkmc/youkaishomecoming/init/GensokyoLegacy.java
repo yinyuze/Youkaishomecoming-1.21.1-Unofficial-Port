@@ -1,6 +1,5 @@
 package dev.xkmc.youkaishomecoming.init;
 
-import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
 import com.tterrag.registrate.providers.ProviderType;
 import dev.xkmc.youkaishomecoming.compat.touhoulittlemaid.TLMCompat;
 import dev.xkmc.youkaishomecoming.compat.touhoulittlemaid.TouhouSpellCards;
@@ -121,9 +120,10 @@ public class GensokyoLegacy {
         TouhouSpellCards.registerSpells();
         dev.xkmc.youkaishomecoming.content.attachment.graze.GrazeHelperGL.register();
         AttackEventHandler.register(1765, new GLAttackListener());
-        if (ModList.get().isLoaded(TouhouLittleMaid.MOD_ID)) {
-            NeoForge.EVENT_BUS.register(TLMCompat.class);
-        }
+        // NOTE: TLM compat registration deferred to FMLCommonSetupEvent#enqueueWork.
+        // Registering TLMCompat here forces its class (and thus TLM's ItemGarageKit) to load
+        // on the modloading-worker thread, which on Windows 10 races with TLM's own class
+        // initialization (GlWrapper etc.) and causes ~60% startup failures.
     }
 
     @SubscribeEvent
@@ -185,6 +185,11 @@ public class GensokyoLegacy {
 
     @SubscribeEvent
     public static void commonSetup(FMLCommonSetupEvent event) {
+        // Detect TLM by string id here (not TouhouLittleMaid.MOD_ID) to keep this check
+        // from itself pulling in a TLM class on the modloading-worker thread.
+        if (net.neoforged.fml.ModList.get().isLoaded("touhou_little_maid")) {
+            NeoForge.EVENT_BUS.register(TLMCompat.class);
+        }
         event.enqueueWork(() -> {
             DispenserBlock.registerProjectileBehavior(GLItems.FROZEN_FROG_COLD.get());
             DispenserBlock.registerProjectileBehavior(GLItems.FROZEN_FROG_WARM.get());

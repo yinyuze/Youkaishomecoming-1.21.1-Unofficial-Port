@@ -1,9 +1,11 @@
 package dev.xkmc.youkaishomecoming.content.item.food;
 
 import dev.xkmc.youkaishomecoming.event.ReimuEventHandlers;
+import dev.xkmc.youkaishomecoming.content.item.character.TouhouHatItem;
 import dev.xkmc.youkaishomecoming.init.data.GLLang;
 import dev.xkmc.youkaishomecoming.init.data.YHModConfig;
 import dev.xkmc.youkaishomecoming.init.data.YHTagGen;
+import dev.xkmc.youkaishomecoming.init.food.YHFood;
 import dev.xkmc.youkaishomecoming.init.registrate.YHEffects;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -63,6 +65,17 @@ public class FleshFoodItem extends YHFoodItem {
 		super.appendHoverText(stack, ctx, list, flag);
 		if (FMLEnvironment.dist == Dist.CLIENT) {
 			FleshFoodItemClient.appendTasteTooltip(list);
+		}
+		if (stack.getItem() == YHFood.FLESH.item.get()) {
+			Component src;
+			if (TouhouHatItem.showTooltip()) {
+				var fying = Component.translatable(YHEffects.YOUKAIFYING.get().getDescriptionId());
+				var fied = Component.translatable(YHEffects.YOUKAIFIED.get().getDescriptionId());
+				src = GLLang.ITEM$OBTAIN_FLESH.get(fying, fied);
+			} else {
+				src = GLLang.ITEM$UNKNOWN.get();
+			}
+			list.add(GLLang.ITEM$OBTAIN.get().append(src));
 		}
 	}
 
