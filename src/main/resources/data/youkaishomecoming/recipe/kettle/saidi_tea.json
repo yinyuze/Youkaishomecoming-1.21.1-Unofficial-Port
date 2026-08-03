@@ -1,0 +1,10 @@
+{
+  "type": "youkaishomecoming:kettle",
+  "input": [
+    {"tag": "c:tea_leaves/black"},
+    {"tag": "c:tea_leaves/black"},
+    {"item": "minecraft:sugar"}
+  ],
+  "time": 100,
+  "result": {"id": "youkaishomecoming:saidi_tea", "amount": 1000}
+}

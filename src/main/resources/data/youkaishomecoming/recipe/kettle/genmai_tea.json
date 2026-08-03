@@ -1,0 +1,11 @@
+{
+  "type": "youkaishomecoming:kettle",
+  "input": [
+    {"tag": "c:tea_leaves/green"},
+    {"tag": "c:tea_leaves/green"},
+    {"tag": "c:crops/rice"},
+    {"tag": "c:crops/rice"}
+  ],
+  "time": 100,
+  "result": {"id": "youkaishomecoming:genmai_tea", "amount": 1000}
+}

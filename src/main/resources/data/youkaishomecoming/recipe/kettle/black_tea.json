@@ -1,0 +1,11 @@
+{
+  "type": "youkaishomecoming:kettle",
+  "input": [
+    {"tag": "c:tea_leaves/black"},
+    {"tag": "c:tea_leaves/black"},
+    {"tag": "c:tea_leaves/black"},
+    {"tag": "c:tea_leaves/black"}
+  ],
+  "time": 100,
+  "result": {"id": "youkaishomecoming:black_tea", "amount": 1000}
+}

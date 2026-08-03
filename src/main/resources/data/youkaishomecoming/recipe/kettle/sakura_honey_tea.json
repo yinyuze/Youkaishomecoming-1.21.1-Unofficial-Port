@@ -1,0 +1,10 @@
+{
+  "type": "youkaishomecoming:kettle",
+  "input": [
+    {"item": "minecraft:cherry_leaves"},
+    {"item": "minecraft:cherry_leaves"},
+    {"item": "minecraft:honey_bottle"}
+  ],
+  "time": 100,
+  "result": {"id": "youkaishomecoming:sakura_honey_tea", "amount": 1000}
+}

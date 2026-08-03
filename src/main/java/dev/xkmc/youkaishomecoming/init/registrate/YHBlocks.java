@@ -165,8 +165,7 @@ public class YHBlocks {
 	public static final BlockEntry<KettleBlock> KETTLE;
 	public static final BlockEntityEntry<KettleBlockEntity> KETTLE_BE;
 	public static final Val<RecipeType<KettleRecipe>> KETTLE_RT;
-	public static final Val<BasePotSerializer<KettleRecipe>> KETTLE_RS;
-	public static final MenuEntry<KettleMenu> KETTLE_MT;
+	public static final Val<BaseRecipe.RecType<KettleRecipe, KettleRecipe, KettleInput>> KETTLE_RS;
 
 	public static final BlockEntry<DryingRackBlock> RACK;
 	public static final BlockEntityEntry<DryingRackBlockEntity> RACK_BE;
@@ -242,12 +241,12 @@ public class YHBlocks {
 
 			KETTLE = reg.block("kettle", p -> new KettleBlock(
 							BlockBehaviour.Properties.ofFullCopy(Blocks.TERRACOTTA).sound(SoundType.METAL)))
-					.blockstate(KettleBlock::buildModel).item(BasePotItem::new).properties(e -> e.stacksTo(1)).build()
-					.loot(BasePotBlock::buildLoot).tag(BlockTags.MINEABLE_WITH_PICKAXE).register();
+					.blockstate(KettleBlock::buildModel)
+					.item().properties(e -> e.stacksTo(1)).build()
+					.tag(BlockTags.MINEABLE_WITH_PICKAXE).register();
 			KETTLE_BE = reg.blockEntity("kettle", KettleBlockEntity::new).validBlock(KETTLE).register();
 			KETTLE_RT = RT.reg("kettle", RecipeType::simple);
-			KETTLE_RS = RS.reg("kettle", () -> new BasePotSerializer<>(KettleRecipe::new));
-			KETTLE_MT = reg.menu("kettle", KettleMenu::new, () -> KettleScreen::new).register();
+			KETTLE_RS = RS.reg("kettle", () -> new BaseRecipe.RecType<>(KettleRecipe.class, KETTLE_RT));
 
 			RACK = reg.block("drying_rack", p -> new DryingRackBlock(
 							BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO_PLANKS).noOcclusion()))

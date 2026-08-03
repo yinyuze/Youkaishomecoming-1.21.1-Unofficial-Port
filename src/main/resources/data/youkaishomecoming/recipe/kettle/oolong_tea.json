@@ -1,0 +1,11 @@
+{
+  "type": "youkaishomecoming:kettle",
+  "input": [
+    {"tag": "c:tea_leaves/oolong"},
+    {"tag": "c:tea_leaves/oolong"},
+    {"tag": "c:tea_leaves/oolong"},
+    {"tag": "c:tea_leaves/oolong"}
+  ],
+  "time": 100,
+  "result": {"id": "youkaishomecoming:oolong_tea", "amount": 1000}
+}

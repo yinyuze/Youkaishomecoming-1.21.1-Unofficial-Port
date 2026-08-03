@@ -1,0 +1,11 @@
+{
+  "type": "youkaishomecoming:kettle",
+  "input": [
+    {"tag": "c:foods/cabbage"},
+    {"tag": "c:foods/cabbage"},
+    {"tag": "c:foods/cabbage"},
+    {"tag": "c:foods/cabbage"}
+  ],
+  "time": 100,
+  "result": {"id": "youkaishomecoming:green_water", "amount": 1000}
+}

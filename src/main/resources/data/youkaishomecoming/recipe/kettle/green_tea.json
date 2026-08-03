@@ -1,0 +1,11 @@
+{
+  "type": "youkaishomecoming:kettle",
+  "input": [
+    {"tag": "c:tea_leaves/green"},
+    {"tag": "c:tea_leaves/green"},
+    {"tag": "c:tea_leaves/green"},
+    {"tag": "c:tea_leaves/green"}
+  ],
+  "time": 100,
+  "result": {"id": "youkaishomecoming:green_tea", "amount": 1000}
+}

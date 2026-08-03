@@ -20,6 +20,8 @@ public enum YHLangData {
 
 	FERMENT_PROGRESS("fermenting_progress", "Fermenting: %s", 1, ChatFormatting.GRAY),
 	COOKING_PROGRESS("cooking_progress", "Cooking: %s", 1, ChatFormatting.GRAY),
+	BREWING_PROGRESS("brewing_progress", "Brewing: %s", 1, ChatFormatting.GRAY),
+	HEAT_PROGRESS("heat_progress", "Heating: %s", 1, ChatFormatting.GRAY),
 
 	FLASK_OF("flask.of", "Flask Of %s", 1, null),
 	FLASK_CONTENT("tooltip.flask_content", "Content: %s", 1, ChatFormatting.GRAY),

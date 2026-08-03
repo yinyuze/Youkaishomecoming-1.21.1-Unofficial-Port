@@ -161,6 +161,10 @@ public class GensokyoLegacy {
             (be, side) -> be.fluids);
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, YHBlocks.STEAMER_BE.get(),
             dev.xkmc.youkaishomecoming.content.pot.steamer.SteamerBlockEntity::getItemCap);
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, YHBlocks.KETTLE_BE.get(),
+            (be, side) -> be.fluids);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, YHBlocks.KETTLE_BE.get(),
+            dev.xkmc.youkaishomecoming.content.pot.kettle.KettleBlockEntity::getItemHandlerCap);
         if (ModList.get().isLoaded("curios")) {
             dev.xkmc.youkaishomecoming.compat.curios.CuriosCompat.registerCapabilities(event);
         }

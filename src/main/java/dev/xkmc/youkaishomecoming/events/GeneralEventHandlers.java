@@ -22,10 +22,15 @@ public class GeneralEventHandlers {
 		var level = event.getLevel();
 		var pos = event.getPos();
 		var state = level.getBlockState(pos);
-		if (state.getBlock() instanceof LeftClickBlock block) {
-			if (block.leftClick(state, level, pos, event.getEntity())) {
-				event.setCanceled(true);
-			}
+		LeftClickBlock block = null;
+		if (state.getBlock() instanceof LeftClickBlock b) {
+			block = b;
+		} else if (level.getBlockEntity(pos) instanceof LeftClickBlock b) {
+			block = b;
+		}
+		if (block == null) return;
+		if (block.leftClick(state, level, pos, event.getEntity())) {
+			event.setCanceled(true);
 		}
 	}
 

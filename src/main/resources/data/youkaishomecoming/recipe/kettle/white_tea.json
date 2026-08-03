@@ -1,0 +1,11 @@
+{
+  "type": "youkaishomecoming:kettle",
+  "input": [
+    {"tag": "c:tea_leaves/white"},
+    {"tag": "c:tea_leaves/white"},
+    {"tag": "c:tea_leaves/white"},
+    {"tag": "c:tea_leaves/white"}
+  ],
+  "time": 100,
+  "result": {"id": "youkaishomecoming:white_tea", "amount": 1000}
+}

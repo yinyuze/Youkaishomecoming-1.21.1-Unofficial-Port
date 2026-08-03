@@ -828,85 +828,12 @@ public class YHRecipeGen {
 
 		}
 
-		var tea = tea(pvd);
+		// Kettle tea recipes are now hand-written JSON under resources/data/youkaishomecoming/recipe/kettle/
+		// (see feedback_no_rundata memory). Old CookingPotRecipeBuilder-based tea recipes removed.
 		var coffee = coffee(pvd);
 
 		// drinks
 		{
-
-			CookingPotRecipeBuilder.cookingPotRecipe(YHDrink.BLACK_TEA.item.get(), 1, 200, 0.1f, Items.GLASS_BOTTLE)
-					.setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
-					.unlockedByAnyIngredient(YHTea.BLACK.leaves)
-					.addIngredient(YHTagGen.TEA_BLACK)
-					.addIngredient(YHTagGen.TEA_BLACK)
-					.build(tea);
-
-			CookingPotRecipeBuilder.cookingPotRecipe(YHDrink.GREEN_TEA.item.get(), 1, 200, 0.1f, Items.GLASS_BOTTLE)
-					.setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
-					.unlockedByAnyIngredient(YHTea.GREEN.leaves)
-					.addIngredient(YHTagGen.TEA_GREEN)
-					.addIngredient(YHTagGen.TEA_GREEN)
-					.build(tea);
-
-			CookingPotRecipeBuilder.cookingPotRecipe(YHDrink.OOLONG_TEA.item.get(), 1, 200, 0.1f, Items.GLASS_BOTTLE)
-					.setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
-					.unlockedByAnyIngredient(YHTea.OOLONG.leaves)
-					.addIngredient(YHTagGen.TEA_OOLONG)
-					.addIngredient(YHTagGen.TEA_OOLONG)
-					.build(tea);
-
-			CookingPotRecipeBuilder.cookingPotRecipe(YHDrink.WHITE_TEA.item.get(), 1, 200, 0.1f, Items.GLASS_BOTTLE)
-					.setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
-					.unlockedByAnyIngredient(YHTea.WHITE.leaves)
-					.addIngredient(YHTagGen.TEA_WHITE)
-					.addIngredient(YHTagGen.TEA_WHITE)
-					.build(tea);
-
-			CookingPotRecipeBuilder.cookingPotRecipe(YHDrink.CORNFLOWER_TEA.item.get(), 1, 200, 0.1f, Items.GLASS_BOTTLE)
-					.setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
-					.unlockedByAnyIngredient(Items.CORNFLOWER)
-					.addIngredient(Items.CORNFLOWER)
-					.addIngredient(Items.CORNFLOWER)
-					.build(tea);
-
-			CookingPotRecipeBuilder.cookingPotRecipe(YHDrink.TEA_MOCHA.item.get(), 1, 200, 0.1f, Items.GLASS_BOTTLE)
-					.setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
-					.unlockedByAnyIngredient(YHTea.BLACK.leaves)
-					.addIngredient(YHTagGen.TEA_BLACK)
-					.addIngredient(Items.COCOA_BEANS)
-					.addIngredient(CommonTags.FOODS_MILK)
-					.build(tea);
-
-			CookingPotRecipeBuilder.cookingPotRecipe(YHDrink.SAIDI_TEA.item.get(), 1, 200, 0.1f, Items.GLASS_BOTTLE)
-					.setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
-					.unlockedByAnyIngredient(YHTea.BLACK.leaves)
-					.addIngredient(YHTagGen.TEA_BLACK)
-					.addIngredient(Items.SUGAR)
-					.addIngredient(Items.SUGAR)
-					.build(tea);
-
-			CookingPotRecipeBuilder.cookingPotRecipe(YHDrink.SAKURA_HONEY_TEA.item.get(), 1, 200, 0.1f, Items.GLASS_BOTTLE)
-					.setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
-					.unlockedByAnyIngredient(Items.CHERRY_LEAVES)
-					.addIngredient(Items.CHERRY_LEAVES)
-					.addIngredient(Items.HONEY_BOTTLE)
-					.build(tea);
-
-			CookingPotRecipeBuilder.cookingPotRecipe(YHDrink.GENMAI_TEA.item.get(), 1, 200, 0.1f, Items.GLASS_BOTTLE)
-					.setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
-					.unlockedByAnyIngredient(YHTea.GREEN.leaves)
-					.addIngredient(YHTagGen.TEA_GREEN)
-					.addIngredient(YHTagGen.TEA_GREEN)
-					.addIngredient(CommonTags.CROPS_RICE)
-					.build(tea);
-
-
-			CookingPotRecipeBuilder.cookingPotRecipe(YHDrink.GREEN_WATER.item.get(), 1, 200, 0.1f, Items.GLASS_BOTTLE)
-					.setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
-					.unlockedByAnyIngredient(Items.GLASS_BOTTLE)
-					.addIngredient(CommonTags.FOODS_CABBAGE)
-					.addIngredient(CommonTags.FOODS_CABBAGE)
-					.build(tea);
 
 			CookingPotRecipeBuilder.cookingPotRecipe(YHCoffee.ESPRESSO.item.get(), 1, 200, 0.1f, Items.GLASS_BOTTLE)
 					.setRecipeBookTab(CookingPotRecipeBookTab.DRINKS)
@@ -1505,9 +1432,11 @@ public class YHRecipeGen {
 		throw new UnsupportedOperationException("Use SimpleCookingRecipeBuilder directly with recipe constructor instead");
 	}
 
-	private static RecipeOutput tea(RegistrateRecipeProvider pvd) {
-		return new BasePotOutput<>(YHBlocks.KETTLE_RS.get(), pvd);
-	}
+	// Kettle recipes are hand-written under resources/data/youkaishomecoming/recipe/kettle/
+	// after the kettle refactor. Do not use BasePotOutput here.
+	// private static RecipeOutput tea(RegistrateRecipeProvider pvd) {
+	//     return new BasePotOutput<>(YHBlocks.KETTLE_RS.get(), pvd);
+	// }
 
 	private static RecipeOutput coffee(RegistrateRecipeProvider pvd) {
 		return new BasePotOutput<>(YHBlocks.MOKA_RS.get(), pvd);

@@ -82,8 +82,28 @@ public interface FluidItemTile {
 						player.getInventory().placeItemBackInInventory(Items.GLASS_BOTTLE.getDefaultInstance());
 					}
 					sl.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 0.7f, 1);
+					be.notifyTile();
 				}
+				return ItemInteractionResult.SUCCESS;
 			}
+			return ItemInteractionResult.CONSUME;
+		}
+		// fill water from bucket
+		if (stack.is(Items.WATER_BUCKET)) {
+			var attempt = be.getFluidHandler().fill(new FluidStack(Fluids.WATER, 1000), IFluidHandler.FluidAction.SIMULATE);
+			if (attempt == 1000) {
+				if (level instanceof ServerLevel sl) {
+					be.getFluidHandler().fill(new FluidStack(Fluids.WATER, 1000), IFluidHandler.FluidAction.EXECUTE);
+					if (!player.isCreative()) {
+						stack.shrink(1);
+						player.getInventory().placeItemBackInInventory(Items.BUCKET.getDefaultInstance());
+					}
+					sl.playSound(null, pos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 0.7f, 1);
+					be.notifyTile();
+				}
+				return ItemInteractionResult.SUCCESS;
+			}
+			return ItemInteractionResult.CONSUME;
 		}
 		return addItem(be, stack, level, pos);
 	}

@@ -1,0 +1,11 @@
+{
+  "type": "youkaishomecoming:kettle",
+  "input": [
+    {"item": "minecraft:cornflower"},
+    {"item": "minecraft:cornflower"},
+    {"item": "minecraft:cornflower"},
+    {"item": "minecraft:cornflower"}
+  ],
+  "time": 100,
+  "result": {"id": "youkaishomecoming:cornflower_tea", "amount": 1000}
+}

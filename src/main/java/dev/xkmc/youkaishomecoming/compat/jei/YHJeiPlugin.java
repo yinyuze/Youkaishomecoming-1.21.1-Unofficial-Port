@@ -3,9 +3,7 @@ package dev.xkmc.youkaishomecoming.compat.jei;
 import dev.xkmc.l2serial.util.Wrappers;
 import dev.xkmc.youkaishomecoming.content.pot.cooking.core.PotCookingRecipe;
 import dev.xkmc.youkaishomecoming.content.pot.ferment.SimpleFermentationRecipe;
-import dev.xkmc.youkaishomecoming.content.pot.kettle.KettleMenu;
 import dev.xkmc.youkaishomecoming.content.pot.kettle.KettleRecipe;
-import dev.xkmc.youkaishomecoming.content.pot.kettle.KettleScreen;
 import dev.xkmc.youkaishomecoming.content.pot.moka.MokaMenu;
 import dev.xkmc.youkaishomecoming.content.pot.moka.MokaRecipe;
 import dev.xkmc.youkaishomecoming.content.pot.moka.MokaScreen;
@@ -90,12 +88,10 @@ public class YHJeiPlugin implements IModPlugin {
 
 	public void registerGuiHandlers(IGuiHandlerRegistration registration) {
 		registration.addRecipeClickArea(MokaScreen.class, 89, 25, 24, 17, MOKA);
-		registration.addRecipeClickArea(KettleScreen.class, 89, 25, 24, 17, KETTLE);
 	}
 
 	public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
 		registration.addRecipeTransferHandler(MokaMenu.class, YHBlocks.MOKA_MT.get(), MOKA, 0, 4, 7, 36);
-		registration.addRecipeTransferHandler(KettleMenu.class, YHBlocks.KETTLE_MT.get(), KETTLE, 0, 4, 7, 36);
 	}
 
 

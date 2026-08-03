@@ -7,23 +7,29 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.block.entity.container.CookingPotMealSlot;
 import vectorwing.farmersdelight.common.tag.ModTags;
 
 import java.util.Objects;
 
-public abstract class BasePotMenu<T extends BasePotRecipe> extends RecipeBookMenu<RecipeWrapper, T> {
+/**
+ * Base container menu for kettle / moka / other pot-like GUIs.
+ * <p>
+ * Historically this extended {@code RecipeBookMenu} to mirror the vanilla cooking-pot menu,
+ * but our pots never registered their own {@code RecipeBookType} in {@code RecipeBookSettings.states},
+ * which causes REI's {@code DefaultRecipeBookExclusionZones} to NPE while rendering.
+ * We now extend the plain {@code AbstractContainerMenu} — the recipe-book side of the pot GUI was
+ * unused anyway.
+ */
+public abstract class BasePotMenu<T extends BasePotRecipe> extends AbstractContainerMenu {
 	public static final ResourceLocation EMPTY_CONTAINER_SLOT = GensokyoLegacy.loc("item/empty_container_slot_bottle");
 	public final BasePotBlockEntity<T> blockEntity;
 	public final ItemStackHandler inventory;
@@ -156,47 +162,6 @@ public abstract class BasePotMenu<T extends BasePotRecipe> extends RecipeBookMen
 
 	public boolean isHeated() {
 		return blockEntity.isHeated();
-	}
-
-	public void fillCraftSlotsStackedContents(StackedContents helper) {
-		for (int i = 0; i < inventory.getSlots(); ++i) {
-			helper.accountSimpleStack(inventory.getStackInSlot(i));
-		}
-
-	}
-
-	public void clearCraftingContent() {
-		for (int i = 0; i < BasePotBlockEntity.MEAL_DISPLAY_SLOT; ++i) {
-			inventory.setStackInSlot(i, ItemStack.EMPTY);
-		}
-
-	}
-
-	@Override
-	public boolean recipeMatches(RecipeHolder<T> recipeHolder) {
-		return recipeHolder.value().matches(new RecipeWrapper(inventory), level);
-	}
-
-	public int getResultSlotIndex() {
-		return BasePotBlockEntity.CONTAINER_SLOT;
-	}
-
-	public int getGridWidth() {
-		return 2;
-	}
-
-	public int getGridHeight() {
-		return 2;
-	}
-
-	public int getSize() {
-		return BasePotBlockEntity.CONTAINER_SLOT;
-	}
-
-	public abstract RecipeBookType getRecipeBookType();
-
-	public boolean shouldMoveToInventory(int slot) {
-		return slot < getGridWidth() * getGridHeight();
 	}
 
 }

@@ -7,7 +7,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,11 +23,6 @@ public class MokaMenu extends BasePotMenu<MokaRecipe> {
 	@Override
 	public Block getBlock() {
 		return YHBlocks.MOKA.get();
-	}
-
-	@Override
-	public RecipeBookType getRecipeBookType() {
-		return null;
 	}
 
 }
