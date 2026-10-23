@@ -1,6 +1,7 @@
 package dev.xkmc.youkaishomecoming.init;
 
 import com.tterrag.registrate.providers.ProviderType;
+import dev.xkmc.danmakuapi.init.registrate.DanmakuItems;
 import dev.xkmc.youkaishomecoming.compat.touhoulittlemaid.TLMCompat;
 import dev.xkmc.youkaishomecoming.compat.touhoulittlemaid.TouhouSpellCards;
 import dev.xkmc.youkaishomecoming.content.attachment.character.CharDataToClient;
@@ -39,6 +40,7 @@ import dev.xkmc.l2serial.network.PacketHandler;
 import dev.xkmc.l2damagetracker.contents.attack.AttackEventHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -62,7 +64,7 @@ public class GensokyoLegacy {
     public static final String MODID = "youkaishomecoming";
     public static final Reg REG = new Reg(MODID);
     public static final L2Registrate REGISTRATE = new L2Registrate(MODID);
-    public static SimpleEntry<CreativeModeTab> TAB;
+    public static SimpleEntry<CreativeModeTab> TAB, DANMAKU_TAB;
     public static final PacketHandlerWithConfig HANDLER = new PacketHandlerWithConfig(MODID, 1,
             h -> h.create(FrogSyncPacket.class, PacketHandler.NetDir.PLAY_TO_CLIENT),
             h -> h.create(CharDataToClient.class, PacketHandler.NetDir.PLAY_TO_CLIENT),
@@ -87,10 +89,15 @@ public class GensokyoLegacy {
     public static final IngVal<SlipBottleIngredient> ING_BOTTLE = IngReg.of(REG).reg("slip_bottle", SlipBottleIngredient.class);
 
     public GensokyoLegacy() {
+        if (DANMAKU_TAB == null) {
+            DANMAKU_TAB = REGISTRATE.buildModCreativeTab("danmaku", "Youkai's Danmaku",
+                    e -> e.icon(() -> DanmakuItems.Bullet.CIRCLE.get(DyeColor.RED).asStack()));
+        }
         if (TAB == null) {
             TAB = REGISTRATE.buildModCreativeTab("youkais_homecoming", "Youkai's Homecoming",
                     e -> e.icon(YHItems.OOLONG_TEA_BAG::asStack));
         }
+        REGISTRATE.defaultCreativeTab(TAB.key());
         dev.xkmc.l2serial.serialization.custom_handler.Handlers.enableVanilla(net.minecraft.world.level.material.Fluid.class, net.minecraft.core.registries.BuiltInRegistries.FLUID);
         YHBlocks.register();
         GLDecoBlocks.register();
@@ -118,7 +125,6 @@ public class GensokyoLegacy {
         GLModConfig.init();
         YHModConfig.init();
         TouhouSpellCards.registerSpells();
-        dev.xkmc.youkaishomecoming.content.attachment.graze.GrazeHelperGL.register();
         AttackEventHandler.register(1765, new GLAttackListener());
         // NOTE: TLM compat registration deferred to FMLCommonSetupEvent#enqueueWork.
         // Registering TLMCompat here forces its class (and thus TLM's ItemGarageKit) to load

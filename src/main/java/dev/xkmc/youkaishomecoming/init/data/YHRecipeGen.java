@@ -693,6 +693,14 @@ public class YHRecipeGen {
 					.addIngredient(CommonTags.FOODS_CABBAGE)
 					.addIngredient(YHItems.CREAM.get()), pvd);
 
+			cookSave(CookingPotRecipeBuilder.cookingPotRecipe(YHFood.HONEY_GLAZED_CUCUMBER.item.get(), 1, 200, 0.1f, Items.BOWL)
+					.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
+					.addIngredient(YHTagGen.CUCUMBER)
+					.addIngredient(YHTagGen.CUCUMBER)
+					.addIngredient(YHTagGen.CUCUMBER)
+					.addIngredient(YHTagGen.RAW_VENISON)
+					.addIngredient(Items.HONEY_BOTTLE), pvd);
+
 			cookSave(CookingPotRecipeBuilder.cookingPotRecipe(YHBowl.MUSHROOM_SOUP.item.get(), 1, 200, 0.1f, YHBlocks.IRON_BOWL.asItem())
 					.setRecipeBookTab(CookingPotRecipeBookTab.MEALS)
 					.addIngredient(Items.BROWN_MUSHROOM)

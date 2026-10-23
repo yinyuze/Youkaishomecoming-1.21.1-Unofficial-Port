@@ -28,7 +28,6 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 
@@ -54,7 +53,7 @@ public class GLEntities {
 
 	static {
 
-		GensokyoLegacy.REGISTRATE.defaultCreativeTab(CreativeModeTabs.OP_BLOCKS);
+		GensokyoLegacy.REGISTRATE.defaultCreativeTab(GensokyoLegacy.TAB.key());
 
 		{
 

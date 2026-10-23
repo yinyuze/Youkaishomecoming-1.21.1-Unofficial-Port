@@ -224,6 +224,10 @@ public enum YHFood implements ItemLike {
 			new EffectEntry(ModEffects.NOURISHMENT, 3600, 0, 1),
 			new EffectEntry(ModEffects.COMFORT, 3600, 0, 1)
 	), DietTagGen.PROTEINS.tag, DietTagGen.VEGETABLES.tag),
+	HONEY_GLAZED_CUCUMBER(FoodType.BOWL, 10, 0.8f, List.of(
+			new EffectEntry(ModEffects.NOURISHMENT, 3600, 0, 1),
+			new EffectEntry(ModEffects.COMFORT, 3600, 0, 1)
+	), DietTagGen.VEGETABLES.tag),
 	LIONS_HEAD(FoodType.BOWL_MEAT, 12, 0.8f, List.of(
 			new EffectEntry(ModEffects.NOURISHMENT, 3600, 0, 1),
 			new EffectEntry(ModEffects.COMFORT, 3600, 0, 1),

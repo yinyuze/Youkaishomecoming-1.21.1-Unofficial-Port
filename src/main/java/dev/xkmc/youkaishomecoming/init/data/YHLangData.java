@@ -40,11 +40,11 @@ public enum YHLangData {
 	JEI_COOKING("jei.cooking", "Pot Cooking", 0, null),
 	JEI_STEAM("jei.steam", "Steaming", 0, null),
 
-	STEAMER_NO_HEAT("tooltip.steamer_no_heat", "No heat source below", 0, ChatFormatting.RED),
-	STEAMER_NO_WATER("tooltip.steamer_no_water", "No water in pot", 0, ChatFormatting.RED),
-	STEAMER_TOO_MANY("tooltip.steamer_too_many", "Too many racks stacked", 0, ChatFormatting.RED),
-	STEAMER_NO_RACK("tooltip.steamer_no_rack", "No rack placed", 0, ChatFormatting.RED),
-	STEAMER_NO_CAP("tooltip.steamer_no_cap", "No lid on top", 0, ChatFormatting.RED),
+	STEAMER_NO_HEAT("steamer.no_heat", "No heat source below", 0, ChatFormatting.RED),
+	STEAMER_NO_WATER("steamer.no_water", "No water in pot", 0, ChatFormatting.RED),
+	STEAMER_TOO_MANY("steamer.too_many", "Too many racks stacked", 0, ChatFormatting.RED),
+	STEAMER_NO_RACK("steamer.no_rack", "No rack placed", 0, ChatFormatting.RED),
+	STEAMER_NO_CAP("steamer.no_cap", "No lid on top", 0, ChatFormatting.RED),
 
 	OBTAIN("obtain", "Source: ", 0, ChatFormatting.GRAY),
 	UNKNOWN("unknown", "???", 0, ChatFormatting.GRAY),

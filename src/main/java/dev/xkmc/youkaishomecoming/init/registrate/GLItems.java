@@ -56,7 +56,7 @@ public class GLItems {
     static {
         var reg = GensokyoLegacy.REGISTRATE;
 
-        TAB = GensokyoLegacy.TAB;
+        TAB = GensokyoLegacy.DANMAKU_TAB;
 
         FAIRY_ICE_CRYSTAL = reg.item("fairy_ice_crystal", FairyIceItem::new)
                 .model((ctx, pvd) -> pvd.generated(ctx, pvd.modLoc("item/ingredient/" + ctx.getName())))
@@ -87,7 +87,10 @@ public class GLItems {
                 .defaultLang().register();
         GLBlocks.register();
 
-        // gears - registered before OP_BLOCKS tab so they appear in main mod tab
+        // Accessories and spell cards belong together in the danmaku tab.
+        reg.defaultCreativeTab(TAB.key());
+
+        // gears
         {
             STRAW_HAT = reg
                     .item("straw_hat", p -> new StrawHatItem(p.rarity(Rarity.UNCOMMON)))
@@ -142,8 +145,6 @@ public class GLItems {
             HAT_ITEMS = List.of(STRAW_HAT, SUWAKO_HAT, KOISHI_HAT, RUMIA_HAIRBAND, REIMU_HAIRBAND, CIRNO_HAIRBAND);
 
         }
-
-        reg.defaultCreativeTab(CreativeModeTabs.OP_BLOCKS);
 
         // spell cards
         {

@@ -1,6 +1,5 @@
 package dev.xkmc.youkaishomecoming.content.attachment.graze;
 
-import dev.xkmc.danmakuapi.api.GrazeHelper;
 import dev.xkmc.danmakuapi.init.data.DanmakuTagGen;
 import dev.xkmc.fastprojectileapi.entity.GrazingEntity;
 import dev.xkmc.youkaishomecoming.content.entity.youkai.YoukaiEntity;
@@ -19,17 +18,12 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * GL-side implementation of the danmaku-battle player mechanics. Holds the static config/attribute
- * helpers used by {@link GrazeCapability} and the {@link GrazeHelper.GrazeProvider} that the
- * DanmakuAPI calls into for graze, hurt-gating, hit-box shrinking and shoot-forbidding.
+ * helpers used by {@link GrazeCapability}. {@code GrazeHelperMixin} routes the Danmaku API's
+ * graze, hurt-gating, hit-box shrinking and shoot-forbidding hooks into these methods.
  */
 public class GrazeHelperGL {
 
 	public static final TagKey<Item> DANMAKU_SHOOTER = DanmakuTagGen.DANMAKU_SHOOTER;
-
-	/** Registers the provider so DanmakuAPI routes graze/forbid/hurt/hitbox calls into GL. */
-	public static void register() {
-		GrazeHelper.setProvider(new Provider());
-	}
 
 	public static void graze(Player entity, GrazingEntity e) {
 		var graze = GLMeta.GRAZE.type().getOrCreate(entity);
@@ -97,30 +91,6 @@ public class GrazeHelperGL {
 			dev.xkmc.l2core.init.reg.simple.Val<net.minecraft.world.entity.ai.attributes.Attribute> val) {
 		return (net.neoforged.neoforge.registries.DeferredHolder<net.minecraft.world.entity.ai.attributes.Attribute,
 				net.minecraft.world.entity.ai.attributes.Attribute>) (Object) val.val();
-	}
-
-	private static class Provider implements GrazeHelper.GrazeProvider {
-
-		@Override
-		public void graze(Player entity, GrazingEntity e) {
-			GrazeHelperGL.graze(entity, e);
-		}
-
-		@Override
-		public float getHitBoxShrink(Player player) {
-			return getHitBoxDelta(player);
-		}
-
-		@Override
-		public boolean shouldPlayerHurt(Player player, LivingEntity le) {
-			return GLMeta.GRAZE.type().getOrCreate(player).shouldHurt(player, le);
-		}
-
-		@Override
-		public boolean forbidDanmaku(Player player) {
-			return GrazeHelperGL.forbidDanmaku(player);
-		}
-
 	}
 
 }

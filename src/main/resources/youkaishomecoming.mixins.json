@@ -6,8 +6,11 @@
 	"mixins": [
 		"AddItemModifierAccessor",
 		"AddLootTableModifierAccessor",
+		"BaseProjectileVelocityMixin",
 		"CookingPotRecipeAccessor",
+		"DanmakuBulletCollisionMixin",
 		"FrogAttackablesSensorMixin",
+		"GrazeHelperMixin",
 		"ItemSpellAccessor",
 		"LivingEntityMixin",
 		"RandomizableContainerBlockEntityMixin",
@@ -15,6 +18,7 @@
 		"SpellItemAccessor"
 	],
 	"client": [
+		"DanmakuEntityCullingMixin",
 		"effect.GameRendererMixin"
 	],
 	"injectors": {

@@ -43,6 +43,7 @@ public class YHTagGen {
 	public static final TagKey<Item> TAMAGOYAKI = item("tamagoyaki");
 	public static final TagKey<Item> TAMAGOYAKI_SLICE = item("tamagoyaki_slice");
 	public static final TagKey<Item> NATTOU = item("nattou");
+	public static final TagKey<Item> CUCUMBER = ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", "crops/cucumber"));
 	public static final TagKey<Item> CUCUMBER_SLICE = item("cucumber_slice");
 	public static final TagKey<Item> SALMON_ROE = item("salmon_roe");
 	public static final TagKey<Item> BUTTER = item("butter");
@@ -168,6 +169,7 @@ public class YHTagGen {
 				.add(Items.POTATO.builtInRegistryHolder().key())
 				.add(Items.BEETROOT.builtInRegistryHolder().key())
 				.add(YHCrops.CUCUMBER.getFruits().builtInRegistryHolder().key());
+		pvd.addTag(CUCUMBER).add(YHCrops.CUCUMBER.getFruits());
 
 		if (ModList.get().isLoaded("sereneseasons")) {
 			SeasonCompat.genItem(pvd);

@@ -5,10 +5,10 @@ import dev.xkmc.danmakuapi.api.DanmakuUseEvent;
 import dev.xkmc.danmakuapi.content.item.DanmakuItem;
 import dev.xkmc.danmakuapi.content.item.LaserItem;
 import dev.xkmc.youkaishomecoming.compat.curios.CuriosCompat;
+import dev.xkmc.youkaishomecoming.compat.curios.CuriosManager;
 import dev.xkmc.youkaishomecoming.content.attachment.misc.FrogGodCapability;
 import dev.xkmc.youkaishomecoming.content.item.character.ReimuHairbandItem;
 import dev.xkmc.youkaishomecoming.content.item.character.TouhouHatItem;
-import dev.xkmc.youkaishomecoming.content.item.character.TouhouWingsItem;
 import dev.xkmc.youkaishomecoming.init.GensokyoLegacy;
 import dev.xkmc.youkaishomecoming.init.data.GLAdvGen;
 import dev.xkmc.youkaishomecoming.init.data.GLDamageTypes;
@@ -51,8 +51,7 @@ public class GeneralEventHandlers {
         boolean wearingHairband = player.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof ReimuHairbandItem
                 || (ModList.get().isLoaded("curios") && CuriosCompat.hasCurioHairband(player));
         boolean hairbandGrantsFlight = wearingHairband && GLModConfig.SERVER.reimuHairbandFlightEnable.get();
-        boolean wingsAndFairy = player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof TouhouWingsItem
-                && player.hasEffect(YHEffects.FAIRY);
+        boolean wingsAndFairy = CuriosManager.hasAnyWings(player) && player.hasEffect(YHEffects.FAIRY);
         boolean shouldFly = hairbandGrantsFlight || wingsAndFairy;
         if (shouldFly && !player.getAbilities().mayfly) {
             player.getAbilities().mayfly = true;
@@ -270,4 +269,3 @@ public class GeneralEventHandlers {
     }
 
 }
-
